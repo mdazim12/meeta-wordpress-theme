@@ -885,6 +885,64 @@
         </div>
         <!-- Testimonial End -->
 
+
+
+        <div class="meeta-blog-3 section-padding">
+            <div class="container">
+                <!-- Section Title Start -->
+                <div class="meeta-section-title section-title-4 text-center">
+                    <h2 class="main-title"><span class="title-shape-2">Tips</span> & Articles</h2>
+                </div>
+                <!-- Section Title End -->
+                <div class="meeta-blog-wrap">
+                    <div class="row">
+
+
+                    <?php
+
+                    $query_blog= new WP_Query(array(
+                        'post_type'     =>'POST',
+                        'post_per_page' =>3,
+                        'order'         =>'ASC'
+
+                    ));
+
+
+                        if($query_blog->have_posts(  )){
+                            while($query_blog->have_posts()) : $query_blog->the_post(); ?>
+
+                             <div class="col-lg-4 col-md-6">
+                            <!-- Single Blog Start -->
+                            <div class="single-blog-3">
+                                <div class="blog-image">
+                                    <a href="blog-details.html"><?php the_post_thumbnail();?></a>
+                                    <div class="top-meta">
+                                        <span class="category color-4"><?php the_category(  );?></span>
+                                    </div>
+                                </div>
+                                <div class="blog-content">
+                                    <div class="blog-meta">
+                                        <span class="date"><?php the_date('d,M,y')?></span>
+                                    </div>
+                                    <h3 class="title"><a href="blog-details.html"><?php the_title();?></a></h3>
+                                </div>
+                            </div>
+                            <!-- Single Blog End -->
+                        </div>
+
+
+
+                           <?php endwhile;
+                        }
+                    
+                    ?>
+
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <?php get_footer();?>
