@@ -52,9 +52,18 @@
 
                         </div>
                         <div class="col-lg-6 d-none d-lg-block">
+                            <?php
+                                wp_nav_menu( array(
+                                    'theme_location'    =>'primary_menu',
+                                    'depth'             =>2,
+                                    'menu_class'        =>'main-menu',
+                                    'container_class'   =>'header-navigation'
+
+                                ) );
+                            ?>
 
                             <!-- Header Navigation Start -->
-                            <div class="header-navigation">
+                            <!-- <div class="header-navigation">
                                 <ul class="main-menu">
                                     <li class="active-menu"><a href="#">Home</a>
                                         <ul class="sub-menu">
@@ -90,7 +99,7 @@
                                     </li>
                                     <li><a href="contact.html">Contact</a></li>
                                 </ul>
-                            </div>
+                            </div> -->
                             <!-- Header Navigation End -->
 
                         </div>
