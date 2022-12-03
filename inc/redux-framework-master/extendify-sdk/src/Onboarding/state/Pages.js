@@ -8,29 +8,24 @@ const store = (set, get) => ({
     count() {
         return get().pages.size
     },
-    getPageOrder() {
+    pageOrder() {
         return Array.from(get().pages.keys())
     },
-    getCurrentPageData() {
-        return get().pages.get(get().getCurrentPageSlug())
+    currentPageData() {
+        return get().pages.get(get().currentPageSlug())
     },
-    getCurrentPageSlug() {
-        const page = get().getPageOrder()[get().currentPageIndex]
-        if (!page) {
-            get().setPage(0)
-            return get().getPageOrder()[0]
-        }
-        return page
+    currentPageSlug() {
+        return get().pageOrder()[get().currentPageIndex]
     },
-    getNextPageData() {
+    nextPageData() {
         const nextIndex = get().currentPageIndex + 1
         if (nextIndex > get().count() - 1) return {}
-        return get().pages.get(get().getPageOrder()[nextIndex])
+        return get().pages.get(get().pageOrder()[nextIndex])
     },
     setPage(page) {
         // If page is a string, get the index
         if (typeof page === 'string') {
-            page = get().getPageOrder().indexOf(page)
+            page = get().pageOrder().indexOf(page)
         }
         if (page > get().count() - 1) return
         if (page < 0) return
@@ -52,8 +47,8 @@ const withPersist = persist(withDevtools, {
     getStorage: () => localStorage,
     partialize: (state) => ({
         currentPageIndex: state?.currentPageIndex ?? 0,
-        currentPageSlug: state?.getCurrentPageSlug() ?? null,
-        availablePages: state?.getPageOrder() ?? [],
     }),
 })
-export const usePagesStore = create(withPersist)
+export const usePagesStore = window?.extOnbData?.devbuild
+    ? create(withDevtools)
+    : create(withPersist)

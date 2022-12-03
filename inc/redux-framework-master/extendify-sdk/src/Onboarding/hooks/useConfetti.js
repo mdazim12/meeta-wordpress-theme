@@ -1,9 +1,8 @@
 import { useEffect } from '@wordpress/element'
 import confetti from 'canvas-confetti'
 
-export const useConfetti = (config = {}, time = 0, ready = false) => {
+export const useConfetti = (config = {}, time = 0) => {
     useEffect(() => {
-        if (!ready) return
         const secondsFromNow = Date.now() + time
         const frame = () => {
             confetti({
@@ -16,5 +15,5 @@ export const useConfetti = (config = {}, time = 0, ready = false) => {
             }
         }
         frame()
-    }, [config, time, ready])
+    }, [config, time])
 }

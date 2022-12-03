@@ -182,7 +182,7 @@ export const GridView = memo(function GridView() {
                         retryOnce.current = false
                         fetchTemplates()
                     }}>
-                    {__('Press here to reload', 'extendify')}
+                    {__('Press here to reload')}
                 </Button>
             </div>
         )
@@ -194,13 +194,11 @@ export const GridView = memo(function GridView() {
                 <h2 className="text-sm font-normal text-extendify-gray">
                     {sprintf(
                         searchParams.current.type === 'template'
-                            ? // translators: %s is the layout category name
-                              __(
+                            ? __(
                                   'We couldn\'t find any layouts in the "%s" category.',
                                   'extendify',
                               )
-                            : // translators: %s is the pattern category name
-                              __(
+                            : __(
                                   'We couldn\'t find any patterns in the "%s" category.',
                                   'extendify',
                               ),

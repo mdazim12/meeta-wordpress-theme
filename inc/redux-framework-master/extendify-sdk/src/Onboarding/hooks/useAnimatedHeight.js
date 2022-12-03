@@ -12,7 +12,6 @@ export const useAnimatedHeight = (preview, blockHeight, ready) => {
         iframe.style.maxHeight = `${blockHeight / scale}px`
 
         const handleIn = () => {
-            if (!content?.offsetHeight) return
             // The live component changes over time so easier to query on demand
             const height = content.offsetHeight
             content.style.transitionDuration = Math.max(height * 3, 3000) + 'ms'
@@ -21,7 +20,6 @@ export const useAnimatedHeight = (preview, blockHeight, ready) => {
             })
         }
         const handleOut = () => {
-            if (!content?.offsetHeight) return
             const height = content.offsetHeight
             content.style.transitionDuration = height / 1.5 + 'ms'
             raf2 = window.requestAnimationFrame(() => {

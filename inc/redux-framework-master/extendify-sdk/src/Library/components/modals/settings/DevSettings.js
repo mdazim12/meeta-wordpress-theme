@@ -16,6 +16,9 @@ export const DevSettings = () => {
         setProcessing(true)
         if (canHydrate) {
             setCanHydrate(false)
+            useUserStore.setState({
+                participatingTestsGroups: [],
+            })
             await useUserStore.persist.rehydrate()
             window.extendifyData._canRehydrate = false
             setProcessing(false)

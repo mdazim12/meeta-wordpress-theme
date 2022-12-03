@@ -39,8 +39,6 @@ if ( ! class_exists( 'Redux_Social_Profiles_Widget' ) ) {
 		 * @param string $field_id Field ID.
 		 */
 		public function __construct( $parent, string $field_id ) {
-			return;
-
 			$this->parent   = $parent;
 			$this->field_id = $field_id;
 

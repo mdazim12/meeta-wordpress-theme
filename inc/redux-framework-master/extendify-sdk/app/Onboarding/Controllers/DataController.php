@@ -24,10 +24,7 @@ class DataController
     public static function getSiteTypes()
     {
         $response = Http::get('/site-types');
-        return new \WP_REST_Response(
-            $response,
-            wp_remote_retrieve_response_code($response)
-        );
+        return new \WP_REST_Response($response);
     }
 
     /**
@@ -44,10 +41,7 @@ class DataController
             'siteType' => $siteType,
             'styles' => $styles,
         ]);
-        return new \WP_REST_Response(
-            $response,
-            wp_remote_retrieve_response_code($response)
-        );
+        return new \WP_REST_Response($response);
     }
     /**
      * Get styles with code template.
@@ -63,10 +57,7 @@ class DataController
             wp_send_json_error(['message' => $response->get_error_message()], 400);
         }
 
-        return new \WP_REST_Response(
-            $response,
-            wp_remote_retrieve_response_code($response)
-        );
+        return new \WP_REST_Response($response);
     }
 
     /**
@@ -77,10 +68,7 @@ class DataController
     public static function getLayoutTypes()
     {
         $response = Http::get('/layout-types');
-        return new \WP_REST_Response(
-            $response,
-            wp_remote_retrieve_response_code($response)
-        );
+        return new \WP_REST_Response($response);
     }
 
     /**
@@ -91,10 +79,7 @@ class DataController
     public static function getGoals()
     {
         $response = Http::get('/goals');
-        return new \WP_REST_Response(
-            $response,
-            wp_remote_retrieve_response_code($response)
-        );
+        return new \WP_REST_Response($response);
     }
 
     /**
@@ -105,33 +90,17 @@ class DataController
     public static function getSuggestedPlugins()
     {
         $response = Http::get('/suggested-plugins');
-        return new \WP_REST_Response(
-            $response,
-            wp_remote_retrieve_response_code($response)
-        );
+        return new \WP_REST_Response($response);
     }
 
     /**
-     * Fetch exit questions
+     * Create an order.
      *
      * @return \WP_REST_Response
      */
-    public static function exitQuestions()
+    public static function createOrder()
     {
-        $response = Http::get('/exit-questions');
-        return new \WP_REST_Response(
-            $response,
-            wp_remote_retrieve_response_code($response)
-        );
-    }
-
-    /**
-     * Just here to check for 200 (vs server rate limting)
-     *
-     * @return \WP_REST_Response
-     */
-    public static function ping()
-    {
-        return new \WP_REST_Response(true, 200);
+        $response = Http::post('/create-order');
+        return new \WP_REST_Response($response);
     }
 }

@@ -15,7 +15,9 @@ register_nav_menus(array(
 
 
 require_once('inc/function/all_style_scripts.php');
-require_once('inc/class-wp-bootstrap-navwalker.php');
+//require_once('inc/class-wp-bootstrap-navwalker.php');
+require_once('inc/redux-framework-master/redux-framework.php');
+require_once('inc/theme_options.php');
 
 
 

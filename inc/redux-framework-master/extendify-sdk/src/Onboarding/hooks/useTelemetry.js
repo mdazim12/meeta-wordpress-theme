@@ -1,4 +1,5 @@
 import { useEffect, useState } from '@wordpress/element'
+import { createOrder } from '@onboarding/api/DataApi'
 import { useGlobalStore } from '@onboarding/state/Global'
 import { usePagesStore } from '@onboarding/state/Pages'
 import { useUserSelectionStore } from '@onboarding/state/UserSelections'
@@ -12,10 +13,8 @@ export const useTelemetry = () => {
         style: selectedStyle,
         feedbackMissingSiteType,
         feedbackMissingGoal,
-        siteTypeSearch,
-        exitFeedback,
     } = useUserSelectionStore()
-    const { generating } = useGlobalStore()
+    const { orderId, setOrderId, generating } = useGlobalStore()
     const { pages, currentPageIndex } = usePagesStore()
     const [url, setUrl] = useState()
     const [stepProgress, setStepProgress] = useState([])
@@ -42,7 +41,7 @@ export const useTelemetry = () => {
         // Add selectedStyle to the set
         setViewedStyles((styles) => {
             const newStyles = new Set(styles)
-            newStyles.add(selectedStyle)
+            newStyles.add(selectedStyle.recordId)
             return newStyles
         })
     }, [selectedStyle])
@@ -56,57 +55,42 @@ export const useTelemetry = () => {
     }, [])
 
     useEffect(() => {
-        if (!url) return
+        if (!url || orderId?.length) return
+        // Create a order that persists over local storage
+        createOrder().then((response) => {
+            setOrderId(response.data.id)
+        })
+    }, [url, setOrderId, orderId])
+
+    useEffect(() => {
+        if (!url || !orderId) return
         let id = 0
-        let innerId = 0
         id = window.setTimeout(() => {
-            const controller = new AbortController()
-            innerId = window.setTimeout(() => {
-                controller.abort()
-            }, 500)
             fetch(`${url}/progress`, {
                 method: 'POST',
-                headers: {
-                    'Content-type': 'application/json',
-                    Accept: 'application/json',
-                },
-                signal: controller.signal,
+                headers: { 'Content-type': 'application/json' },
                 body: JSON.stringify({
+                    orderId,
                     selectedGoals: selectedGoals?.map((g) => g.id),
-                    selectedGoalsSlugs: selectedGoals?.map((g) => g.slug),
                     selectedPages: selectedPages?.map((p) => p.id),
-                    selectedPagesSlugs: selectedPages?.map((p) => p.slug),
-                    selectedPlugins: selectedPlugins?.map((p) => p.name),
+                    selectedPlugins,
                     selectedSiteType: selectedSiteType?.recordId
                         ? [selectedSiteType.recordId]
                         : [],
-                    selectedSiteTypeSlug: selectedSiteType?.slug,
                     selectedStyle: selectedStyle?.recordId
                         ? [selectedStyle.recordId]
                         : [],
-                    selectedStyleSlug: selectedStyle?.slug,
                     stepProgress,
-                    viewedStyles: [...viewedStyles]
-                        .map((s) => s.recordId)
-                        .slice(1),
-                    viewedStylesSlugs: [...viewedStyles]
-                        .map((s) => s.slug)
-                        .slice(1),
+                    pages,
+                    viewedStyles: [...viewedStyles].slice(1),
                     feedbackMissingSiteType,
                     feedbackMissingGoal,
-                    siteTypeSearch,
                     perfStyles: getPerformance('style'),
                     perfPages: getPerformance('page'),
-                    insightsId: window.extOnbData?.insightsId,
-                    activeTests: JSON.stringify(window.extOnbData?.activeTests),
-                    exitFeedback,
-                    partnerName: window.extOnbData?.partnerName,
-                    wpLanguage: window.extOnbData?.wpLanguage,
-                    siteCreatedAt: window.extOnbData?.siteCreatedAt,
                 }),
-            }).catch(() => undefined)
+            })
         }, 1000)
-        return () => [id, innerId].forEach((i) => window.clearTimeout(i))
+        return () => window.clearTimeout(id)
     }, [
         url,
         selectedGoals,
@@ -115,20 +99,17 @@ export const useTelemetry = () => {
         selectedSiteType,
         selectedStyle,
         pages,
+        orderId,
         stepProgress,
         viewedStyles,
         feedbackMissingSiteType,
         feedbackMissingGoal,
-        siteTypeSearch,
-        exitFeedback,
     ])
 }
 
 const getPerformance = (type) => {
     return performance
-        ?.getEntriesByType('measure')
-        ?.filter(
-            (m) => m?.detail?.extendify && m?.detail?.context?.type === type,
-        )
-        ?.map((m) => ({ [m.name]: m.duration }))
+        .getEntriesByType('measure')
+        .filter((m) => m.detail.extendify && m.detail.context.type === type)
+        .map((m) => ({ [m.name]: m.duration }))
 }

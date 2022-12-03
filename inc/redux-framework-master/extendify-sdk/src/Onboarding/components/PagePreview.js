@@ -22,11 +22,7 @@ export const PagePreview = ({
         {
             siteType: siteType.slug,
             layoutType: page.slug,
-            baseLayout: isHome
-                ? siteType.slug.startsWith('blog')
-                    ? style?.blogBaseLayout
-                    : style?.homeBaseLayout
-                : null,
+            baseLayout: isHome ? style?.homeBaseLayout : null,
             kit: page.slug !== 'home' ? style?.kit : null,
         },
         fetcher,
@@ -55,7 +51,6 @@ export const PagePreview = ({
 
     return (
         <div
-            data-cy="pageSelector"
             role="button"
             tabIndex={0}
             aria-label={__('Press to select', 'extendify')}
@@ -64,16 +59,8 @@ export const PagePreview = ({
             onClick={() => required || toggle('pages', page)}
             title={
                 required && title
-                    ? sprintf(
-                          // translators: %s is the name of a page (e.g. Home, Blog, About)
-                          __('%s page is required', 'extendify'),
-                          title,
-                      )
-                    : sprintf(
-                          // translators: %s is the name of a page (e.g. Home, Blog, About)
-                          __('Toggle %s page', 'extendify'),
-                          title,
-                      )
+                    ? sprintf(__('%s page is required', 'extendify'), title)
+                    : sprintf(__('Toggle %s page', 'extendify'), title)
             }
             onKeyDown={(e) => {
                 if (['Enter', 'Space', ' '].includes(e.key)) {

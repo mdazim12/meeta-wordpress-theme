@@ -1,5 +1,6 @@
 import { PluginSidebarMoreMenuItem } from '@wordpress/edit-post'
 import { render } from '@wordpress/element'
+import { __ } from '@wordpress/i18n'
 import { Icon } from '@wordpress/icons'
 import { registerPlugin } from '@wordpress/plugins'
 import LibraryAccessModal from '@library/components/LibraryAccessModal'
@@ -93,7 +94,7 @@ const LibraryEnableDisable = () => {
                 onClick={setOpenSiteSettingsModal}
                 icon={<Icon icon={brandMark} size={24} />}>
                 {' '}
-                Extendify
+                {__('Extendify', 'extendify')}
             </PluginSidebarMoreMenuItem>
         </>
     )

@@ -1,13 +1,20 @@
 import create from 'zustand'
-import { devtools } from 'zustand/middleware'
+import { devtools, persist } from 'zustand/middleware'
 
 const store = (set) => ({
     generating: false,
-    exitModalOpen: false,
-    closeExitModal: () => set({ exitModalOpen: false }),
-    openExitModal: () => set({ exitModalOpen: true }),
-    hoveredOverExitButton: false,
-    setExitButtonHovered: () => set({ hoveredOverExitButton: true }),
+    generatedPages: {},
+    orderId: null,
+    setOrderId(orderId) {
+        set({ orderId })
+    },
 })
 const withDevtools = devtools(store, { name: 'Extendify Launch Globals' })
-export const useGlobalStore = create(withDevtools)
+const withPersist = persist(withDevtools, {
+    name: 'extendify-launch-globals',
+    getStorage: () => localStorage,
+    partialize: (state) => ({
+        orderId: state?.orderId ?? null,
+    }),
+})
+export const useGlobalStore = create(withPersist)

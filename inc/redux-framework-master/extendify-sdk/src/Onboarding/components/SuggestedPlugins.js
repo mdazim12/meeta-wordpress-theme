@@ -47,15 +47,15 @@ export const SuggestedPlugins = () => {
     }, [suggestedPlugins, add, nothingToRecommend, hasGoal, remove])
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="lg:grid grid-cols-2 gap-x-4 gap-y-1">
             {suggestedPlugins?.filter(hasGoal)?.map((plugin) => (
-                <div key={plugin.id}>
+                <div className="pb-3" key={plugin.id}>
                     <CheckboxInput
                         label={plugin.name}
                         slug={plugin.wordpressSlug}
                         description={plugin.description}
                         checked={!nothingToRecommend}
-                        onChange={() => toggle('plugins', plugin)}
+                        onClick={() => toggle('plugins', plugin)}
                     />
                 </div>
             ))}

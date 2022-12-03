@@ -1,8 +1,9 @@
 import { Icon } from '@wordpress/components'
 import { useRef } from '@wordpress/element'
-import { __, sprintf } from '@wordpress/i18n'
+import { __ } from '@wordpress/i18n'
 import { General } from '@library/api/General'
 import { growthArrow, brandLogo } from '@library/components/icons'
+import { useUserStore } from '@library/state/User'
 import { SplitModal } from './SplitModal'
 
 export const ProModal = () => {
@@ -20,13 +21,9 @@ export const ProModal = () => {
                     )}
                 </h3>
                 <p className="text-sm text-black">
-                    {sprintf(
-                        // translators: %s: The name of the plugin, Extendify.
-                        __(
-                            "Upgrade to %s Pro and use all the patterns and layouts you'd like, including our exclusive Pro catalog.",
-                            'extendify',
-                        ),
-                        'Extendify',
+                    {__(
+                        "Upgrade to Extendify Pro and use all the patterns and layouts you'd like, including our exclusive Pro catalog.",
+                        'extendify',
                     )}
                 </p>
                 <div>
@@ -35,7 +32,11 @@ export const ProModal = () => {
                         ref={initialFocus}
                         className="button-extendify-main button-focus mt-2 inline-flex justify-center px-4 py-3"
                         style={{ minWidth: '225px' }}
-                        href={`https://extendify.com/pricing/?utm_source=${window.extendifyData.sdk_partner}&utm_medium=library&utm_campaign=pro-modal&utm_content=upgrade-now`}
+                        href={`https://extendify.com/pricing/?utm_source=${
+                            window.extendifyData.sdk_partner
+                        }&utm_medium=library&utm_campaign=pro-modal&utm_content=upgrade-now&utm_group=${useUserStore
+                            .getState()
+                            .activeTestGroupsUtmValue()}`}
                         onClick={async () =>
                             await General.ping('pro-modal-click')
                         }

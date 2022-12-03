@@ -14,6 +14,7 @@ use Extendify\Library\SiteSettings;
  */
 class Admin
 {
+
     /**
      * The instance
      *
@@ -119,24 +120,18 @@ class Admin
      */
     public function addScopedScriptsAndStyles()
     {
-        $user = json_decode(User::data('extendifysdk_user_data'), true);
-        $openOnNewPage = isset($user['state']['openOnNewPage']) ? $user['state']['openOnNewPage'] : Config::$launchCompleted;
         $version = Config::$environment === 'PRODUCTION' ? Config::$version : uniqid();
-        $scriptAssetPath = EXTENDIFY_PATH . 'public/build/extendify-asset.php';
-        $fallback = [
-            'dependencies' => [],
-            'version' => $version,
-        ];
-        $scriptAsset = file_exists($scriptAssetPath) ? require $scriptAssetPath : $fallback;
-        foreach ($scriptAsset['dependencies'] as $style) {
-            wp_enqueue_style($style);
-        }
 
         \wp_register_script(
             Config::$slug . '-scripts',
             EXTENDIFY_BASE_URL . 'public/build/extendify.js',
-            $scriptAsset['dependencies'],
-            $scriptAsset['version'],
+            [
+                'wp-i18n',
+                'wp-components',
+                'wp-element',
+                'wp-editor',
+            ],
+            $version,
             true
         );
         \wp_localize_script(
@@ -145,14 +140,12 @@ class Admin
             [
                 'root' => \esc_url_raw(rest_url(Config::$slug . '/' . Config::$apiVersion)),
                 'nonce' => \wp_create_nonce('wp_rest'),
-                'user' => $user,
-                'openOnNewPage' => $openOnNewPage,
+                'user' => json_decode(User::data('extendifysdk_user_data'), true),
                 'sitesettings' => json_decode(SiteSettings::data()),
                 'sdk_partner' => \esc_attr(Config::$sdkPartner),
                 'asset_path' => \esc_url(EXTENDIFY_URL . 'public/assets'),
                 'standalone' => \esc_attr(Config::$standalone),
                 'devbuild' => \esc_attr(Config::$environment === 'DEVELOPMENT'),
-                'insightsId' => \get_option('extendify_site_id', ''),
             ]
         );
         \wp_enqueue_script(Config::$slug . '-scripts');

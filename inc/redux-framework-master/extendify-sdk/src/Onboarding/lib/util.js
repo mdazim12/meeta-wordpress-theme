@@ -1,5 +1,3 @@
-import { pingServer } from '@onboarding/api/DataApi'
-
 /** Takes each possible code section and filters out undefined */
 export const findTheCode = (item) =>
     [item?.template?.code, item?.template?.code2].filter(Boolean).join('')
@@ -18,26 +16,3 @@ export const lowerImageQuality = (html) => {
 /** Capitalize first letter of a string */
 export const capitalize = (str) =>
     str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
-
-export const runAtLeastFor = async (functionPromise, time, options) => {
-    if (options.dryRun) {
-        return new Promise((resolve) => setTimeout(resolve, time))
-    }
-    return Promise.all([
-        await functionPromise(),
-        new Promise((resolve) => setTimeout(resolve, time)),
-    ])
-}
-
-/** Will ping every 1s until we get a 200 response from the server  */
-export const waitFor200Response = async () => {
-    try {
-        // This will error if not 200
-        await pingServer()
-        return true
-    } catch (error) {
-        //
-    }
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    return waitFor200Response()
-}

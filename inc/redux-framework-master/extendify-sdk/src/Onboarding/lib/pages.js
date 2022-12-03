@@ -2,41 +2,43 @@ import {
     Goals,
     fetcher as goalsFetcher,
     fetchData as goalsData,
-    state as goalsState,
+    metadata as goalsMeta,
 } from '@onboarding/pages/Goals'
+import { Landing, metadata as landingMeta } from '@onboarding/pages/Landing'
 import {
     SiteInformation,
     fetcher as siteInfoFetcher,
     fetchData as siteInfoData,
-    state as siteInfoState,
+    metadata as siteInfoMeta,
 } from '@onboarding/pages/SiteInformation'
 import {
     SitePages,
     fetcher as sitePagesFetcher,
     fetchData as sitePagesData,
-    state as sitePagesState,
+    metadata as sitePagesMeta,
 } from '@onboarding/pages/SitePages'
-import { SiteStyle, state as siteStyleState } from '@onboarding/pages/SiteStyle'
+import {
+    SiteStyle,
+    metadata as siteStyleMeta,
+} from '@onboarding/pages/SiteStyle'
 import {
     SiteSummary,
-    state as confirmationState,
+    metadata as confirmationMeta,
 } from '@onboarding/pages/SiteSummary'
 import {
     SiteTypeSelect,
     fetcher as siteTypeFetcher,
     fetchData as siteTypeData,
-    state as siteTypeState,
+    metadata as siteTypeMeta,
 } from '@onboarding/pages/SiteTypeSelect'
 
 // pages added here will need to match the orders table on the Styles base
 const defaultPages = [
     [
-        'site-type',
+        'welcome',
         {
-            component: SiteTypeSelect,
-            fetcher: siteTypeFetcher,
-            fetchData: siteTypeData,
-            state: siteTypeState,
+            component: Landing,
+            metadata: landingMeta,
         },
     ],
     [
@@ -45,14 +47,23 @@ const defaultPages = [
             component: Goals,
             fetcher: goalsFetcher,
             fetchData: goalsData,
-            state: goalsState,
+            metadata: goalsMeta,
+        },
+    ],
+    [
+        'site-type',
+        {
+            component: SiteTypeSelect,
+            fetcher: siteTypeFetcher,
+            fetchData: siteTypeData,
+            metadata: siteTypeMeta,
         },
     ],
     [
         'style',
         {
             component: SiteStyle,
-            state: siteStyleState,
+            metadata: siteStyleMeta,
         },
     ],
     [
@@ -61,7 +72,7 @@ const defaultPages = [
             component: SitePages,
             fetcher: sitePagesFetcher,
             fetchData: sitePagesData,
-            state: sitePagesState,
+            metadata: sitePagesMeta,
         },
     ],
     [
@@ -70,13 +81,19 @@ const defaultPages = [
             component: SiteInformation,
             fetcher: siteInfoFetcher,
             fetchData: siteInfoData,
-            state: siteInfoState,
+            metadata: siteInfoMeta,
         },
     ],
-    ['confirmation', { component: SiteSummary, state: confirmationState }],
+    [
+        'confirmation',
+        {
+            component: SiteSummary,
+            metadata: confirmationMeta,
+        },
+    ],
 ]
 
-const pages = defaultPages?.filter(
+const pages = defaultPages.filter(
     (pageKey) => !window.extOnbData?.partnerSkipSteps?.includes(pageKey[0]),
 )
 export { pages }

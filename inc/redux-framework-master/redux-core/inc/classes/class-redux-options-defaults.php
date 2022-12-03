@@ -88,10 +88,8 @@ if ( ! class_exists( 'Redux_Options_Defaults', false ) ) {
 							$this->field_default_values( $opt_name, $field, $wp_data_class, false );
 
 							if ( 'repeater' === $field['type'] ) {
-								if ( ! empty( $field['fields'] ) ) {
-									foreach ( $field['fields'] as $f ) {
-										$this->field_default_values( $opt_name, $f, $wp_data_class, true );
-									}
+								foreach ( $field['fields'] as $f ) {
+									$this->field_default_values( $opt_name, $f, $wp_data_class, true );
 								}
 							}
 						}

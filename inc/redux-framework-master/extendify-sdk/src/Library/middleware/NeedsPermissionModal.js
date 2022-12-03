@@ -24,7 +24,6 @@ export default function NeedsPermissionModal() {
                     maxWidth: '400px',
                 }}>
                 {sprintf(
-                    // translators: %s is the template type (e.g. "pattern", "layout", etc.)
                     __(
                         'In order to add this %s to your site, the following plugins are required to be installed and activated.',
                         'extendify',

@@ -62,5 +62,7 @@ if ( ! class_exists( 'Redux_Class', false ) ) {
 
 			return null;
 		}
+
 	}
+
 }

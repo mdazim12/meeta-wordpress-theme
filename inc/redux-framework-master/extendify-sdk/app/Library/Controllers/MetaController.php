@@ -25,9 +25,6 @@ class MetaController
     public static function getAll($request)
     {
         $response = Http::get('/meta-data', $request->get_params());
-        return new \WP_REST_Response(
-            $response,
-            wp_remote_retrieve_response_code($response)
-        );
+        return new \WP_REST_Response($response);
     }
 }

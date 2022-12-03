@@ -708,7 +708,6 @@ if ( ! class_exists( 'Redux', false ) ) {
 		 * @param bool       $replace  Replaces section instead of creating a new one.
 		 */
 		public static function set_section( string $opt_name = '', ?array $section = array(), bool $replace = false ) {
-
 			if ( empty( $section ) || '' === $opt_name ) {
 				return;
 			}
@@ -768,6 +767,7 @@ if ( ! class_exists( 'Redux', false ) ) {
 					}
 					unset( $section['fields'] );
 				}
+
 				self::$sections[ $opt_name ][ $section['id'] ] = $section;
 			} else {
 				self::$errors[ $opt_name ]['section']['empty'] = esc_html__( 'Unable to create a section due an empty section array or the section variable passed was not an array.', 'redux-framework' );
@@ -1581,7 +1581,7 @@ if ( ! class_exists( 'Redux', false ) ) {
 				if ( $ext_file ) {
 					self::check_extension_class_file( $opt_name, $folder, $ext_file );
 				} else {
-					$folders = scandir( $path );
+					$folders = scandir( $path, 1 );
 
 					foreach ( $folders as $folder ) {
 						if ( '.' === $folder || '..' === $folder ) {

@@ -1,47 +1,8 @@
 # Redux Changelog
 
-## 4.3.20.2
-* Fixed: Widget area UI improperly aligned when `dev_mode` set to `false`.
-* Fixed: `spinner` field not outputting `output` data.
-* Update: Extendify Library 1.2.1
-
-## 4.3.20.1
-* Added: Google Maps extension [https://devs.redux.io/core-extensions/google-maps.html](https://devs.redux.io/core-extensions/google-maps.html)
-* Fixed: Metaboxes CSS causing layout issues when `dev_mode` set to `false`.
-* Update: Font Awesome 6.2.1
-
-## 4.3.20
-* Fixed: `spinner` field returning JavaScript error.
-* Fixed: `required` not working outside a `repeater` when `repeater` field is loaded somewhere in the project.
-* Fixed: JS error when `typography` `font-style` set to `false`.
-* Updated: Removed registration verbiage from Google Fonts update notice.
-* Added: Widget Areas extension (for use with Classic Widgets only).
-* Updated: Extendify Library 1.0.1
-* Release date: November 2, 2022
-
-## 4.3.19
-* Fixed: Extendify menu item appearing when it should not.
-* Fixed: #3909 - Blank page template would cause fatal error.
-* Release date: September 30, 2022
- 
-## 4.3.18
-* New: #3903 - Typography `weights` argument to override standard default weights.
-* Updated Extendify Library 0.10.2
-* Updated: Font Awesome 6.2.0
-* Modified: Attempt to override old theme embedded extensions that use the 3.x loading method.
-* Fixed: Social Profiles in metaboxes, hopefully.
-* Fixed: `slides` field not showing image upon select. Thanks @animeiswrong
-* Removed: Social Profiles Widget (use the shortcode in HTML widget instead. See docs).
-* Removed: Redux template library (use Extendify template library instead).
-* Removed: Appsero registration for Redux Pro.
-* Modified: Cleanup of old or outdated code.
-* Release date: September 26, 2022
-
-## 4.3.17
+## 4.3.16.1
 * Added: Social Profiles extension. [https://devs.redux.io/core-extensions/social-profiles.html](https://devs.redux.io/core-extensions/social-profiles.html)
-* Fixed: Metabox post types and templates selection inoperative on new posts.
 * Updated: Extendify Library.
-* Release date: August 22, 2002
 
 ## 4.3.16
 * Added: Accordion extension. [https://devs.redux.io/core-extensions/accordion.html](https://devs.redux.io/core-extensions/accordion.html)

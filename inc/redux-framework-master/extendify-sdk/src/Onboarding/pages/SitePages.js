@@ -5,8 +5,8 @@ import { getLayoutTypes } from '@onboarding/api/DataApi'
 import { PagePreview } from '@onboarding/components/PagePreview'
 import { useFetch } from '@onboarding/hooks/useFetch'
 import { PageLayout } from '@onboarding/layouts/PageLayout'
+import { useProgressStore } from '@onboarding/state/Progress'
 import { useUserSelectionStore } from '@onboarding/state/UserSelections'
-import { pageState } from '@onboarding/state/factory'
 
 export const fetcher = async () => {
     const layoutTypes = await getLayoutTypes()
@@ -18,32 +18,22 @@ export const fetcher = async () => {
     const otherPages = pageRecords
         .slice(1)
         ?.sort((a, b) => (a.title > b.title ? 1 : -1))
-    return { data: [homePage, ...(otherPages ?? [])] }
+    return [homePage, ...(otherPages ?? [])]
 }
 export const fetchData = () => {
     return { key: 'layout-types' }
 }
-export const state = pageState('Pages', (set, get) => ({
+export const metadata = {
+    key: 'pages',
     title: __('Pages', 'extendify'),
-    // default will end up just a list of all the pages
-    default: undefined,
-    showInSidebar: true,
-    ready: false,
-    isDefault: () =>
-        useUserSelectionStore.getState().pages?.length ===
-        get().default?.length,
-}))
+    completed: () => true,
+}
 export const SitePages = () => {
     const { data: availablePages } = useFetch(fetchData, fetcher)
     const [pagesToShow, setPagesToShow] = useState([])
     const { add, goals, reset } = useUserSelectionStore()
     const isMounted = useIsMounted()
-
-    useEffect(() => {
-        if (pagesToShow?.length === availablePages?.length) {
-            state.setState({ ready: true })
-        }
-    }, [availablePages?.length, pagesToShow?.length])
+    const touch = useProgressStore((state) => state.touch)
 
     useEffect(() => {
         if (!availablePages?.length) return
@@ -65,7 +55,6 @@ export const SitePages = () => {
                 setPagesToShow((pages) => [...pages, page])
                 await new Promise((resolve) => setTimeout(resolve, 100))
             }
-            state.setState({ ready: true })
         })()
     }, [availablePages, goals, isMounted])
 
@@ -73,7 +62,6 @@ export const SitePages = () => {
     useEffect(() => {
         reset('pages')
         pagesToShow?.map((page) => add('pages', page))
-        state.setState({ default: pagesToShow })
     }, [pagesToShow, add, reset])
 
     return (
@@ -93,19 +81,20 @@ export const SitePages = () => {
                         'extendify',
                     )}
                 </h2>
-                <div className="flex gap-6 flex-wrap justify-center">
+                <div className="lg:flex flex-wrap gap-4">
                     {pagesToShow?.map((page) => {
                         if (page.slug !== 'home')
                             return (
                                 <div
+                                    onClick={() => touch(metadata.key)}
                                     className="relative"
-                                    style={{ height: 541, width: 352 }}
+                                    style={{ height: 490, width: 318.75 }}
                                     key={page.id}>
                                     <PagePreview
                                         required={page?.slug === 'home'}
                                         page={page}
                                         title={page?.title}
-                                        blockHeight={541}
+                                        blockHeight={490}
                                     />
                                 </div>
                             )

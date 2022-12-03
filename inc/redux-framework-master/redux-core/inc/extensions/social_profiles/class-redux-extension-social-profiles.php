@@ -288,9 +288,6 @@ if ( ! class_exists( 'Redux_Extension_Social_Profiles' ) ) {
 	}
 }
 
-class_alias( 'Redux_Extension_Social_Profiles', 'ReduxFramework_Extension_social_profiles' );
-
-
 if ( ! function_exists( 'redux_social_profile_value_from_id' ) ) {
 	/**
 	 * Returns social profile value from passed profile ID.

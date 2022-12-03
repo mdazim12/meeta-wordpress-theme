@@ -1,33 +1,31 @@
+import { Checkmark } from '@onboarding/svg'
+
 export const CheckboxInput = ({
     label,
     slug,
     description,
     checked,
+    onClick,
     onChange,
 }) => {
     return (
         <label
-            className="flex items-baseline hover:text-partner-primary-bg focus-within:text-partner-primary-bg"
-            htmlFor={slug}>
-            <span className="w-5 h-5 relative inline-block mr-3 align-middle">
+            className="flex hover:text-partner-primary-bg focus-within:text-partner-primary-bg"
+            htmlFor={slug}
+            onClick={onClick}
+            onChange={onChange ?? onClick}>
+            <span className="mt-0.5 w-6 h-6 relative inline-block mr-3 align-middle">
                 <input
                     id={slug}
-                    className="h-5 w-5 rounded-sm m-0"
+                    className="h-5 w-5 rounded-sm"
                     type="checkbox"
-                    onChange={onChange}
                     defaultChecked={checked}
                 />
-                <svg
-                    className="absolute block h-5 inset-0 w-5 text-white"
-                    viewBox="1 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    role="presentation">
-                    <path
-                        d="M8.72912 13.7449L5.77536 10.7911L4.76953 11.7899L8.72912 15.7495L17.2291 7.24948L16.2304 6.25073L8.72912 13.7449Z"
-                        fill="currentColor"
-                    />
-                </svg>
+                <Checkmark
+                    className="absolute components-checkbox-control__checked"
+                    style={{ width: 24, color: '#fff' }}
+                    role="presentation"
+                />
             </span>
             <span>
                 <span className="text-base">{label}</span>

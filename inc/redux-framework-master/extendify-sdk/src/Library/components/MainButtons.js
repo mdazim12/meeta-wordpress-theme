@@ -1,8 +1,9 @@
 import { Button } from '@wordpress/components'
 import { useState, useEffect, useRef } from '@wordpress/element'
-import { __, sprintf } from '@wordpress/i18n'
+import { __ } from '@wordpress/i18n'
 import { Icon } from '@wordpress/icons'
 import { General } from '@library/api/General'
+import { useTestGroup } from '@library/hooks/useTestGroup'
 import { useGlobalStore } from '@library/state/GlobalState'
 import { useUserStore } from '@library/state/User'
 import { openModal } from '@library/util/general'
@@ -19,6 +20,9 @@ export const MainButtonWrapper = () => {
     const hasPendingNewImports = useUserStore(
         (state) => state.allowedImports === 0,
     )
+    const uuid = useUserStore((state) => state.uuid)
+    const buttonText = useTestGroup('main-button-text2', ['A', 'B'], true)
+    const [libraryButtonText, setLibraryButtonText] = useState()
 
     const handleTooltipClose = async () => {
         await General.ping('mb-tooltip-closed')
@@ -30,6 +34,18 @@ export const MainButtonWrapper = () => {
             allowedImports: -1,
         })
     }
+    useEffect(() => {
+        if (!uuid) return
+        const text = () => {
+            switch (buttonText) {
+                case 'A':
+                    return __('Add template', 'extendify')
+                case 'B':
+                    return __('Design Library', 'extendify')
+            }
+        }
+        setLibraryButtonText(text())
+    }, [buttonText, uuid])
 
     useEffect(() => {
         if (open) {
@@ -44,10 +60,7 @@ export const MainButtonWrapper = () => {
 
     return (
         <>
-            <MainButton
-                buttonRef={buttonRef}
-                text={__('Design Library', 'extendify')}
-            />
+            <MainButton buttonRef={buttonRef} text={libraryButtonText} />
             {showTooltip && (
                 <NewImportsPopover
                     anchorRef={buttonRef}
@@ -93,11 +106,7 @@ export const CtaButton = () => {
             }}
             onClick={() => openModal('patterns-cta')}
             isSecondary>
-            {sprintf(
-                // translators: %s: Extendify Library term.
-                __('Discover patterns in the %s', 'extendify'),
-                'Extendify Library',
-            )}
+            {__('Discover patterns in Extendify Library', 'extendify')}
         </Button>
     )
 }

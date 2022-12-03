@@ -26,10 +26,7 @@ class TemplateController
     public static function index($request)
     {
         $response = Http::post('/templates', $request->get_params());
-        return new \WP_REST_Response(
-            $response,
-            wp_remote_retrieve_response_code($response)
-        );
+        return new \WP_REST_Response($response);
     }
 
     /**
@@ -41,9 +38,6 @@ class TemplateController
     public static function ping($request)
     {
         $response = Http::post('/templates', $request->get_params());
-        return new \WP_REST_Response(
-            $response,
-            wp_remote_retrieve_response_code($response)
-        );
+        return new \WP_REST_Response($response);
     }
 }

@@ -5,16 +5,16 @@ import {
     useRef,
     useMemo,
 } from '@wordpress/element'
-import { __ } from '@wordpress/i18n'
+import { __, sprintf } from '@wordpress/i18n'
 import { getStyles } from '@onboarding/api/DataApi'
-import { getThemeVariations } from '@onboarding/api/WPApi'
-import { SkeletonLoader } from '@onboarding/components/SkeletonLoader'
 import { StylePreview } from '@onboarding/components/StyledPreview'
 import { useFetch } from '@onboarding/hooks/useFetch'
 import { useIsMountedLayout } from '@onboarding/hooks/useIsMounted'
 import { PageLayout } from '@onboarding/layouts/PageLayout'
+import { usePagesStore } from '@onboarding/state/Pages'
+import { useProgressStore } from '@onboarding/state/Progress'
 import { useUserSelectionStore } from '@onboarding/state/UserSelections'
-import { pageState } from '@onboarding/state/factory'
+import { SpinnerIcon } from '@onboarding/svg'
 
 export const fetcher = (params) => getStyles(params)
 export const fetchData = (siteType) => {
@@ -25,25 +25,18 @@ export const fetchData = (siteType) => {
         styles: siteType?.styles ?? [],
     }
 }
-export const state = pageState('Design', (set, get) => ({
+export const metadata = {
+    key: 'style',
     title: __('Design', 'extendify'),
-    default: undefined,
-    showInSidebar: true,
-    ready: false,
-    isDefault: () =>
-        useUserSelectionStore.getState().style?.slug === get().default?.slug,
-}))
+    completed: () => true,
+}
 export const SiteStyle = () => {
+    const siteType = useUserSelectionStore((state) => state.siteType)
     const { data: styleData, loading } = useFetch(fetchData, fetcher)
-    const { data: variations } = useFetch('variations', getThemeVariations)
     const once = useRef(false)
     const stylesRef = useRef()
     const isMounted = useIsMountedLayout()
     const [styles, setStyles] = useState([])
-
-    useEffect(() => {
-        state.setState({ ready: !loading })
-    }, [loading])
 
     useEffect(() => {
         if (!styleData?.length) return
@@ -57,21 +50,10 @@ export const SiteStyle = () => {
     }, [styleData, isMounted])
 
     useEffect(() => {
-        if (
-            variations?.length &&
-            styles?.length &&
-            !useUserSelectionStore.getState().style
-        ) {
-            // Grab the styles from the theme.json variation
-            const variation = variations.find(
-                (theme) => theme.title === styles[0].label,
-            )
-            useUserSelectionStore
-                .getState()
-                .setStyle({ ...styles[0], variation })
-            state.setState({ default: { ...styles[0], variation } })
+        if (styles?.length && !useUserSelectionStore.getState().style) {
+            useUserSelectionStore.getState().setStyle(styles[0])
         }
-    }, [styles, variations])
+    }, [styles])
 
     useEffect(() => {
         if (!styles?.length || once.current) return
@@ -84,7 +66,13 @@ export const SiteStyle = () => {
         <PageLayout>
             <div>
                 <h1 className="text-3xl text-partner-primary-text mb-4 mt-0">
-                    {__('Now pick a design for your new site.', 'extendify')}
+                    {sprintf(
+                        __(
+                            'Now pick a design for your new %s site.',
+                            'extendify',
+                        ),
+                        siteType?.label?.toLowerCase(),
+                    )}
                 </h1>
                 <p className="text-base opacity-70 mb-0">
                     {__('You can personalize this later.', 'extendify')}
@@ -99,21 +87,22 @@ export const SiteStyle = () => {
                           )
                         : __('Pick your style', 'extendify')}
                 </h2>
-                <div
-                    ref={stylesRef}
-                    className="flex gap-6 flex-wrap justify-center">
+                <div ref={stylesRef} className="lg:flex gap-6 flex-wrap">
                     {styles?.map((style) => (
                         <StylePreviewWrapper
                             key={style.recordId}
                             style={style}
                         />
                     ))}
+                    {/* Budget skeleton loaders */}
                     {styleData?.slice(styles?.length).map((data) => (
                         <div
                             key={data.slug}
-                            style={{ height: 497, width: 352 }}
-                            className="lg:flex gap-6 relative">
-                            <SkeletonLoader context="style" />
+                            style={{ height: 600, width: 425 }}
+                            className="relative">
+                            <div className="bg-gray-50 h-full w-full flex items-center justify-center">
+                                <SpinnerIcon className="spin w-8" />
+                            </div>
                         </div>
                     ))}
                 </div>
@@ -123,9 +112,16 @@ export const SiteStyle = () => {
 }
 
 const StylePreviewWrapper = ({ style }) => {
-    const onSelect = useCallback((style) => {
-        useUserSelectionStore.getState().setStyle(style)
-    }, [])
+    const nextPage = usePagesStore((state) => state.nextPage)
+    const touch = useProgressStore((state) => state.touch)
+    const selectStyle = useCallback(
+        (style) => {
+            useUserSelectionStore.getState().setStyle(style)
+            touch(metadata.key)
+            nextPage()
+        },
+        [nextPage, touch],
+    )
     const context = useMemo(
         () => ({
             type: 'style',
@@ -135,15 +131,12 @@ const StylePreviewWrapper = ({ style }) => {
         [style],
     )
     return (
-        <div className="relative" style={{ height: 497, width: 352 }}>
+        <div className="relative" style={{ height: 600, width: 425 }}>
             <StylePreview
                 style={style}
                 context={context}
-                onSelect={onSelect}
-                active={
-                    useUserSelectionStore.getState()?.style?.slug === style.slug
-                }
-                blockHeight={497}
+                selectStyle={selectStyle}
+                blockHeight={600}
             />
         </div>
     )

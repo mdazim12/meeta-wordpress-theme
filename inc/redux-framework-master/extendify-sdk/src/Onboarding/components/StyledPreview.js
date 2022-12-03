@@ -10,48 +10,41 @@ import {
 import { __ } from '@wordpress/i18n'
 import classNames from 'classnames'
 import { getThemeVariations, parseThemeJson } from '@onboarding/api/WPApi'
-import { SkeletonLoader } from '@onboarding/components/SkeletonLoader'
 import { useFetch } from '@onboarding/hooks/useFetch'
 import { useIsMounted } from '@onboarding/hooks/useIsMounted'
 import { capitalize, lowerImageQuality } from '@onboarding/lib/util'
 import { useUserSelectionStore } from '@onboarding/state/UserSelections'
+import { SpinnerIcon } from '@onboarding/svg'
 
 const fetcher = async (themeJson) => {
     if (!themeJson) return '{}'
     const res = await parseThemeJson(JSON.stringify(themeJson))
-    if (!res?.styles) {
-        throw new Error('Invalid theme json')
-    }
-    return { data: res.styles }
+    return res?.styles ?? '{}'
 }
 export const StylePreview = ({
     style,
-    onSelect,
+    selectStyle,
     blockHeight,
     context,
-    active = false,
     onHover = null,
 }) => {
     const siteType = useUserSelectionStore((state) => state.siteType)
     const isMounted = useIsMounted()
     const [code, setCode] = useState('')
     const [loaded, setLoaded] = useState(false)
-    const [waitForIframe, setWaitForIframe] = useState(0)
-    const [iFrame, setIFrame] = useState(null)
     const [inView, setInView] = useState(false)
     const [hoverCleanup, setHoverCleanup] = useState(null)
     const [variation, setVariation] = useState()
     const previewContainer = useRef(null)
+    const content = useRef(null)
     const blockRef = useRef(null)
     const observer = useRef(null)
-    const startTime = useRef(null)
     const loadTime = useRef(false)
     const { data: themeJson } = useFetch(
         inView && variation ? variation : null,
         fetcher,
     )
     const { data: variations } = useFetch('variations', getThemeVariations)
-    const theme = variation?.settings?.color?.palette?.theme
 
     const blocks = useMemo(
         () => rawHandler({ HTML: lowerImageQuality(code) }),
@@ -68,45 +61,27 @@ export const StylePreview = ({
         [themeJson],
     )
 
-    useEffect(() => {
-        if (iFrame || !inView) return
-        // continuously check for iframe
-        const interval = setTimeout(() => {
-            const container = previewContainer.current
-            const frame = container?.querySelector('iframe[title]')
-            if (!frame) return setWaitForIframe((prev) => prev + 1)
-            setIFrame(frame)
-        }, 100)
-        return () => clearTimeout(interval)
-    }, [iFrame, inView, waitForIframe])
-
     useLayoutEffect(() => {
         if (!inView || !context.measure) return
         const key = `${context.type}-${context.detail}`
-        // If the component is in view, start the timer
+        // If the componeent is in view, start the timer
         if (!loaded && !loadTime.current) {
-            loadTime.current = 0
-            startTime.current = performance.now()
+            performance.mark(key)
             return
         }
-        let time
-        try {
-            time = performance.measure(key, {
-                start: startTime.current,
-                // The extendify key is used to filter only our measurements
-                detail: { context, extendify: true },
-            })
-        } catch (e) {
-            console.error(e)
-        }
+        const time = performance.measure(key, {
+            start: key,
+            // The extendify key is used to filter only our measurements
+            detail: { context, extendify: true },
+        })
 
-        loadTime.current = time?.duration ?? 0
+        loadTime.current = time.duration
         const q = new URLSearchParams(window.location.search)
-        if (q?.has('performance') && loadTime.current) {
+        if (q?.has('performance')) {
             console.info(
                 `🚀 ${capitalize(context.type)} (${
                     context.detail
-                }) in ${loadTime.current.toFixed()}ms`,
+                }) in ${time.duration.toFixed()}ms`,
             )
         }
     }, [loaded, context, inView])
@@ -140,20 +115,19 @@ export const StylePreview = ({
     }, [siteType?.slug, themeJson, style])
 
     useEffect(() => {
-        if (!iFrame || !loaded) return
         let raf1, raf2
+        if (!content.current || !loaded) return
         const p = previewContainer.current
         const scale = p.offsetWidth / 1400
-        const body = iFrame.contentDocument.body
+        const iframe = content.current
+        const body = iframe.contentDocument.body
         if (body?.style) {
             body.style.transitionProperty = 'all'
             body.style.top = 0
         }
-        // Remove load-styles in case WP laods them
-        body.querySelector('[href*=load-styles]')?.remove()
 
         const handleIn = () => {
-            if (!body?.offsetHeight) return
+            if (!body.offsetHeight) return
             const dynBlockHeight =
                 (blockRef?.current?.offsetHeight ?? blockHeight) - 32
             const bodyHeight =
@@ -165,7 +139,7 @@ export const StylePreview = ({
             })
         }
         const handleOut = () => {
-            if (!body?.offsetHeight) return
+            if (!body.offsetHeight) return
             const dynBlockHeight =
                 (blockRef?.current?.offsetHeight ?? blockHeight) - 32
             const bodyHeight = body.offsetHeight - dynBlockHeight / scale
@@ -187,80 +161,87 @@ export const StylePreview = ({
             p.removeEventListener('blur', handleOut)
             p.removeEventListener('mouseleave', handleOut)
         }
-    }, [blockHeight, loaded, iFrame])
+    }, [blockHeight, loaded])
 
     useEffect(() => {
-        if (!blocks?.length || !iFrame) return
-        let timer, timer2
+        if (!blocks?.length || !inView) return
+        let iframe
 
         // Inserts theme styles after iframe is loaded
-        const load = () => {
-            const doc = iFrame.contentDocument
-            const style = `<style id="ext-tj">${transformedStyles}</style>`
-            if (!doc?.getElementById('ext-tj')) {
-                doc?.head?.insertAdjacentHTML('beforeend', style)
+        const handle = () => {
+            if (!iframe.contentDocument?.getElementById('ext-tj')) {
+                iframe.contentDocument?.head?.insertAdjacentHTML(
+                    'beforeend',
+                    `<style id="ext-tj">${transformedStyles}</style>`,
+                )
             }
-            timer2 = setTimeout(() => isMounted.current && setLoaded(true), 100)
-            clearTimeout(timer)
+            content.current = iframe
+            setTimeout(() => {
+                if (isMounted.current) setLoaded(true)
+            }, 100)
         }
-        iFrame.addEventListener('load', load)
-        // In some cases, the load event doesn't fire.
-        timer = setTimeout(load, 2000)
+        // The callback will attach a load event to the iframe
+        const observer = new MutationObserver(() => {
+            iframe = previewContainer.current.querySelector('iframe[title]')
+            iframe.addEventListener('load', handle)
+            setTimeout(() => {
+                // In some cases, the load event doesn't fire.
+                handle()
+            }, 2000)
+            observer.disconnect()
+        })
+        // observe the ref for when the iframe is injected by wp
+        observer.observe(previewContainer.current, {
+            attributes: false,
+            childList: true,
+            subtree: false,
+        })
         return () => {
-            iFrame?.removeEventListener('load', load)
-            ;[(timer, timer2)].forEach((t) => clearTimeout(t))
+            observer.disconnect()
+            iframe?.removeEventListener('load', handle)
         }
-    }, [blocks, transformedStyles, isMounted, inView, iFrame])
+    }, [blocks, transformedStyles, isMounted, inView])
 
     useEffect(() => {
-        if (observer.current) return
-        observer.current = new IntersectionObserver((entries) => {
-            entries[0].isIntersecting && setInView(true)
-        })
+        // Only trigger the mutation observer if we are in view
+        if (!observer.current) {
+            observer.current = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    setInView(true)
+                }
+            })
+        }
         observer.current.observe(blockRef.current)
-        return () => observer.current.disconnect()
+        return () => {
+            observer.current.disconnect()
+        }
     }, [])
 
     return (
         <>
             {loaded && code ? null : (
-                <>
-                    <div className="absolute inset-0 z-20 flex items-center justify-center">
-                        <SkeletonLoader
-                            context="style"
-                            theme={{
-                                color: theme?.find(
-                                    (c) => c.slug === 'foreground',
-                                )?.color,
-                                bgColor: theme?.find(
-                                    (c) => c.slug === 'background',
-                                )?.color,
-                            }}
-                        />
-                    </div>
-                </>
+                <div className="absolute inset-0 z-20 bg-gray-50 flex items-center justify-center">
+                    <SpinnerIcon className="spin w-8" />
+                </div>
             )}
             <div
-                data-cy="styleSelector"
                 ref={blockRef}
-                role={onSelect ? 'button' : undefined}
-                tabIndex={onSelect ? 0 : undefined}
+                role={selectStyle ? 'button' : undefined}
+                tabIndex={selectStyle ? 0 : undefined}
                 aria-label={
-                    onSelect ? __('Press to select', 'extendify') : undefined
+                    selectStyle ? __('Press to select', 'extendify') : undefined
                 }
                 className={classNames(
                     'group w-full overflow-hidden bg-transparent z-10',
                     {
                         'relative min-h-full': loaded,
                         'absolute opacity-0': !loaded,
-                        'button-focus button-card p-2': onSelect,
-                        'ring-partner-primary-bg ring-offset-2 ring-offset-white ring-wp':
-                            active,
+                        'button-focus button-card p-2': selectStyle,
                     },
                 )}
                 onKeyDown={(e) => {
                     if (['Enter', 'Space', ' '].includes(e.key)) {
-                        onSelect && onSelect({ ...style, variation })
+                        selectStyle && selectStyle({ ...style, variation })
                     }
                 }}
                 onMouseEnter={() => {
@@ -274,8 +255,8 @@ export const StylePreview = ({
                     }
                 }}
                 onClick={
-                    onSelect
-                        ? () => onSelect({ ...style, variation })
+                    selectStyle
+                        ? () => selectStyle({ ...style, variation })
                         : () => {}
                 }>
                 {window?.extOnbData?.devbuild ? (

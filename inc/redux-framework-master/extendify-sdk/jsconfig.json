@@ -3,8 +3,7 @@
         "baseUrl": "./",
         "paths": {
             "@library/*": ["./src/Library/*"],
-            "@onboarding/*": ["./src/Onboarding/*"],
-            "@assist/*": ["./src/Assist/*"]
+            "@onboarding/*": ["./src/Onboarding/*"]
         }
     }
 }

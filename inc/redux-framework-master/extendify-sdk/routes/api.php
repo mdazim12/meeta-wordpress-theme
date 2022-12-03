@@ -11,19 +11,14 @@ use Extendify\ApiRouter;
 use Extendify\Library\Controllers\AuthController;
 use Extendify\Library\Controllers\MetaController;
 use Extendify\Library\Controllers\PingController;
+use Extendify\Library\Controllers\UserController;
+use Extendify\Onboarding\Controllers\WPController;
 use Extendify\Library\Controllers\PluginController;
-use Extendify\Library\Controllers\SiteSettingsController;
+use Extendify\Onboarding\Controllers\DataController;
 use Extendify\Library\Controllers\TaxonomyController;
 use Extendify\Library\Controllers\TemplateController;
-use Extendify\Library\Controllers\UserController;
-use Extendify\Onboarding\Controllers\DataController;
 use Extendify\Onboarding\Controllers\LibraryController;
-use Extendify\Onboarding\Controllers\WPController;
-use Extendify\Assist\Controllers\AssistDataController;
-use Extendify\Assist\Controllers\GlobalsController;
-use Extendify\Assist\Controllers\TasksController;
-use Extendify\Assist\Controllers\UserSelectionController;
-use Extendify\Assist\Controllers\WPController as AssistWPController;
+use Extendify\Library\Controllers\SiteSettingsController;
 
 \add_action(
     'rest_api_init',
@@ -66,20 +61,7 @@ use Extendify\Assist\Controllers\WPController as AssistWPController;
         ApiRouter::get('/onboarding/goals', [DataController::class, 'getGoals']);
         ApiRouter::get('/onboarding/suggested-plugins', [DataController::class, 'getSuggestedPlugins']);
         ApiRouter::get('/onboarding/template', [DataController::class, 'getTemplate']);
-        ApiRouter::get('/onboarding/exit-questions', [DataController::class, 'exitQuestions']);
-        ApiRouter::get('/onboarding/ping', [DataController::class, 'ping']);
-
-        // Assist.
-        ApiRouter::post('/assist/options', [AssistWPController::class, 'updateOption']);
-        ApiRouter::get('/assist/options', [AssistWPController::class, 'getOption']);
-        ApiRouter::get('/assist/launch-pages', [AssistDataController::class, 'getLaunchPages']);
-        ApiRouter::get('/assist/tasks', [TasksController::class, 'fetchTasks']);
-        ApiRouter::get('/assist/task-data', [TasksController::class, 'get']);
-        ApiRouter::post('/assist/task-data', [TasksController::class, 'store']);
-        ApiRouter::get('/assist/global-data', [GlobalsController::class, 'get']);
-        ApiRouter::post('/assist/global-data', [GlobalsController::class, 'store']);
-        ApiRouter::get('/assist/user-selection-data', [UserSelectionController::class, 'get']);
-        ApiRouter::post('/assist/user-selection-data', [UserSelectionController::class, 'store']);
+        ApiRouter::post('/onboarding/create-order', [DataController::class, 'createOrder']);
 
         // TODO: consider merging this route into the library.
         ApiRouter::post('/library/site-type', [LibraryController::class, 'updateSiteType']);

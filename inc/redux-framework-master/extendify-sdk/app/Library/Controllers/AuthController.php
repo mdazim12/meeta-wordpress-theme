@@ -26,10 +26,7 @@ class AuthController
     public static function login($request)
     {
         $response = Http::post('/login', $request->get_params());
-        return new \WP_REST_Response(
-            $response,
-            wp_remote_retrieve_response_code($response)
-        );
+        return new \WP_REST_Response($response);
     }
 
     /**
@@ -41,9 +38,6 @@ class AuthController
     public static function register($request)
     {
         $response = Http::post('/register', $request->get_params());
-        return new \WP_REST_Response(
-            $response,
-            wp_remote_retrieve_response_code($response)
-        );
+        return new \WP_REST_Response($response);
     }
 }

@@ -8,10 +8,14 @@ import '@library/utility-control'
 import { useTaxonomyStore } from './state/Taxonomies'
 
 export default function ExtendifyLibrary({ show = false }) {
-    const { open, setReady, setOpen } = useGlobalStore()
+    const open = useGlobalStore((state) => state.open)
+    const setReady = useGlobalStore((state) => state.setReady)
+    const setOpen = useGlobalStore((state) => state.setOpen)
     const showLibrary = useCallback(() => setOpen(true), [setOpen])
     const hideLibrary = useCallback(() => setOpen(false), [setOpen])
-    const { initTemplateData } = useTemplatesStore()
+    const initTemplateData = useTemplatesStore(
+        (state) => state.initTemplateData,
+    )
     const fetchTaxonomies = useTaxonomyStore((state) => state.fetchTaxonomies)
 
     // When the uuid of the user comes back from the database, we can
@@ -42,15 +46,6 @@ export default function ExtendifyLibrary({ show = false }) {
             setOpen(true)
         }
     }, [show, setOpen])
-
-    useEffect(() => {
-        if (
-            window?.location?.pathname?.includes('post-new.php') &&
-            window.extendifyData.openOnNewPage === '1'
-        ) {
-            setOpen(true)
-        }
-    }, [setOpen])
 
     useEffect(() => {
         GeneralApi.metaData().then((data) => {

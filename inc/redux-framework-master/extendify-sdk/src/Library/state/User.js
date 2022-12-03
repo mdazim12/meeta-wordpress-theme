@@ -1,3 +1,4 @@
+import { sample } from 'lodash'
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
 import { User } from '@library/api/User'
@@ -11,6 +12,12 @@ const storage = {
 const isGlobalLibraryEnabled = () =>
     window.extendifyData.sitesettings === null ||
     window.extendifyData?.sitesettings?.state?.enabled
+
+// Keep track of active tests as some might be active
+// but never rendered.
+const activeTests = {
+    ['main-button-text2']: '0007',
+}
 
 export const useUserStore = create(
     persist(
@@ -31,8 +38,7 @@ export const useUserStore = create(
             enabled: isGlobalLibraryEnabled(),
             canInstallPlugins: false,
             canActivatePlugins: false,
-            openOnNewPage: undefined, // This is only being used on the server
-            setOpenOnNewPage: (value) => set({ openOnNewPage: value }),
+            participatingTestsGroups: {},
             incrementImports: () => {
                 // If the user has freebie imports, use those first
                 const freebieImports =
@@ -55,6 +61,36 @@ export const useUserStore = create(
                 return (
                     Number(get().allowedImports) + Number(get().freebieImports)
                 )
+            },
+            testGroup(testKey, groupOptions) {
+                if (!Object.keys(activeTests).includes(testKey)) return
+                let groups = get().participatingTestsGroups
+                // If the test is already in the group, don't add it again
+                if (!groups[testKey]) {
+                    set({
+                        participatingTestsGroups: Object.assign({}, groups, {
+                            [testKey]: sample(groupOptions),
+                        }),
+                    })
+                }
+                groups = get().participatingTestsGroups
+                return groups[testKey]
+            },
+            activeTestGroups() {
+                return Object.entries(get().participatingTestsGroups)
+                    .filter(([key]) => Object.keys(activeTests).includes(key))
+                    .reduce((obj, [key, value]) => {
+                        obj[key] = value
+                        return obj
+                    }, {})
+            },
+            activeTestGroupsUtmValue() {
+                const active = Object.entries(get().activeTestGroups())
+                    .map(([key, value]) => {
+                        return `${activeTests[key]}=${value}`
+                    }, '')
+                    .join(':')
+                return encodeURIComponent(active)
             },
             hasAvailableImports: () => {
                 return get().apiKey

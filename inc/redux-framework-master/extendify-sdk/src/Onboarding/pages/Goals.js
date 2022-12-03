@@ -1,77 +1,33 @@
 import { useEffect, useRef } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
-import classNames from 'classnames'
 import { getGoals } from '@onboarding/api/DataApi'
-import { CheckboxInputCard } from '@onboarding/components/CheckboxInputCard'
-import { SquareNextButton } from '@onboarding/components/SquareNextButton'
+import { CheckboxInput } from '@onboarding/components/CheckboxInput'
 import { useFetch } from '@onboarding/hooks/useFetch'
 import { PageLayout } from '@onboarding/layouts/PageLayout'
 import { usePagesStore } from '@onboarding/state/Pages'
+import { useProgressStore } from '@onboarding/state/Progress'
 import { useUserSelectionStore } from '@onboarding/state/UserSelections'
-import { pageState } from '@onboarding/state/factory'
-import {
-    BarChart,
-    Design,
-    Donate,
-    OpenEnvelope,
-    Pencil,
-    Planner,
-    PriceTag,
-    School,
-    Shop,
-    Speech,
-    Ticket,
-} from '@onboarding/svg'
 
 export const fetcher = () => getGoals()
 export const fetchData = () => ({ key: 'goals' })
-export const state = pageState('Goals', () => ({
+export const metadata = {
+    key: 'goals',
     title: __('Goals', 'extendify'),
-    default: undefined,
-    showInSidebar: true,
-    ready: false,
-    isDefault: () => {
-        // If no goals are selected and no text is entered
-        const { feedbackMissingGoal, goals } = useUserSelectionStore.getState()
-        return !feedbackMissingGoal?.length && goals?.length === 0
-    },
-}))
+    completed: () => true,
+}
 export const Goals = () => {
     const { data: goals, loading } = useFetch(fetchData, fetcher)
     const { toggle, has } = useUserSelectionStore()
-    const {
-        feedbackMissingGoal: feedback,
-        setFeedbackMissingGoal,
-        goals: selectedGoals,
-    } = useUserSelectionStore()
+    const { feedbackMissingGoal: feedback, setFeedbackMissingGoal } =
+        useUserSelectionStore()
     const nextPage = usePagesStore((state) => state.nextPage)
     const initialFocus = useRef()
-    const showMissingInput = () =>
-        window.extOnbData?.activeTests?.['remove-dont-see-inputs'] === 'A'
-    const userSelectedGoals = selectedGoals.map((goal) => goal.slug)
-    const iconComponents = {
-        BarChart,
-        Design,
-        Donate,
-        OpenEnvelope,
-        Pencil,
-        Planner,
-        PriceTag,
-        School,
-        Shop,
-        Speech,
-        Ticket,
-    }
-
-    useEffect(() => {
-        if (loading) return
-        state.setState({ ready: true })
-    }, [loading])
+    const touch = useProgressStore((state) => state.touch)
 
     useEffect(() => {
         if (!initialFocus.current) return
         const raf = requestAnimationFrame(() =>
-            initialFocus.current?.querySelector('input')?.focus(),
+            initialFocus.current.querySelector('input').focus(),
         )
         return () => cancelAnimationFrame(raf)
     }, [initialFocus])
@@ -97,73 +53,47 @@ export const Goals = () => {
                     <p>{__('Loading...', 'extendify')}</p>
                 ) : (
                     <form
-                        data-cy="goalsForm"
                         onSubmit={(e) => {
                             e.preventDefault()
                             nextPage()
                         }}
-                        className="w-full grid lg:grid-cols-2 gap-4 goal-select">
+                        className="w-full max-w-2xl grid lg:grid-cols-2 gap-4 goal-select">
                         {/* Added so forms can be submitted by pressing Enter */}
                         <input type="submit" className="hidden" />
-                        {goals?.map((goal, index) => {
-                            const selected = userSelectedGoals.includes(
-                                goal.slug,
-                            )
-                            const Icon = iconComponents[goal.icon]
-                            return (
-                                <div
-                                    key={goal.id}
-                                    className={classNames(
-                                        'relative border rounded-lg',
-                                        {
-                                            'border-gray-800': !selected,
-                                            'border-partner-primary-bg':
-                                                selected,
-                                        },
-                                    )}
-                                    ref={
-                                        index === 0 ? initialFocus : undefined
-                                    }>
-                                    <div
-                                        className={classNames(
-                                            'absolute inset-0 pointer-events-none',
-                                            {
-                                                'bg-partner-primary-bg':
-                                                    selected,
-                                            },
-                                        )}
-                                        aria-hidden="true"
-                                        style={{ opacity: '0.04' }}
-                                    />
-                                    <div className="flex items-center gap-4 h-full">
-                                        <CheckboxInputCard
-                                            label={goal.title}
-                                            slug={`goal-${goal.slug}`}
-                                            description={goal.description}
-                                            checked={has('goals', goal)}
-                                            onChange={() => {
-                                                toggle('goals', goal)
-                                            }}
-                                            Icon={Icon}
-                                        />
-                                    </div>
-                                </div>
-                            )
-                        })}
+                        {/* Seems excessive but this keeps failing and crashing randomly */}
+                        {goals && goals?.length > 0
+                            ? goals?.map((goal, index) => (
+                                  <div
+                                      key={goal.id}
+                                      className="border border-gray-800 rounded-lg p-4"
+                                      ref={
+                                          index === 0 ? initialFocus : undefined
+                                      }>
+                                      <CheckboxInput
+                                          label={goal.title}
+                                          checked={has(metadata.key, goal)}
+                                          onChange={() => {
+                                              toggle(metadata.key, goal)
+                                              touch(metadata.key)
+                                          }}
+                                      />
+                                  </div>
+                              ))
+                            : null}
                     </form>
                 )}
-                {!loading && showMissingInput() && (
-                    <div className="max-w-onboarding-sm">
+                {!loading && (
+                    <div className="w-80">
                         <h2 className="text-lg mt-12 mb-4 text-gray-900">
                             {__(
                                 "Don't see what you're looking for?",
                                 'extendify',
                             )}
                         </h2>
-                        <div className="search-panel flex items-center justify-center relative gap-4">
+                        <div className="search-panel flex items-center justify-center relative mb-8">
                             <input
                                 type="text"
-                                className="w-full bg-gray-100 h-14 pl-5 input-focus rounded-none ring-offset-0 focus:bg-white"
+                                className="w-full bg-gray-100 h-12 pl-4 input-focus rounded-none ring-offset-0 focus:bg-white"
                                 value={feedback}
                                 onChange={(e) =>
                                     setFeedbackMissingGoal(e.target.value)
@@ -173,13 +103,6 @@ export const Goals = () => {
                                     'extendify',
                                 )}
                             />
-                            <div
-                                className={classNames({
-                                    visible: feedback,
-                                    invisible: !feedback,
-                                })}>
-                                <SquareNextButton />
-                            </div>
                         </div>
                     </div>
                 )}

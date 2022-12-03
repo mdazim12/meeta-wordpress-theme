@@ -25,9 +25,6 @@ class PingController
     public static function ping($request)
     {
         $response = Http::post('/ping', $request->get_params());
-        return new \WP_REST_Response(
-            $response,
-            wp_remote_retrieve_response_code($response)
-        );
+        return new \WP_REST_Response($response);
     }
 }

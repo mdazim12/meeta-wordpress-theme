@@ -1,6 +1,6 @@
 import { Spinner, Button } from '@wordpress/components'
 import { useState, useEffect, useRef } from '@wordpress/element'
-import { __, sprintf } from '@wordpress/i18n'
+import { __ } from '@wordpress/i18n'
 import { Icon } from '@wordpress/icons'
 import classNames from 'classnames'
 import { General } from '@library/api/General'
@@ -89,11 +89,7 @@ export default function LoginInterface({ actionCallback, initialFocus }) {
             <section className="space-y-6 p-6 text-center flex flex-col items-center">
                 <Icon icon={successIcon} size={148} />
                 <p className="text-center text-lg font-semibold m-0 text-extendify-black">
-                    {sprintf(
-                        // translators: %s: The name of the plugin, Extendify.
-                        __("You've signed in to %s", 'extendify'),
-                        'Extendify',
-                    )}
+                    {__("You've signed in to Extendify", 'extendify')}
                 </p>
                 <Button
                     ref={viewPatternsButtonRef}
@@ -141,7 +137,11 @@ export default function LoginInterface({ actionCallback, initialFocus }) {
                 <p className="space-x-1 text-center text-sm m-0 text-extendify-gray">
                     <span>{__("Don't have an account?", 'extendify')}</span>
                     <a
-                        href={`https://extendify.com/pricing?utm_source=${window.extendifyData.sdk_partner}&utm_medium=library&utm_campaign=sign-in-form&utm_content=sign-up`}
+                        href={`https://extendify.com/pricing?utm_source=${
+                            window.extendifyData.sdk_partner
+                        }&utm_medium=library&utm_campaign=sign-in-form&utm_content=sign-up&utm_group=${useUserStore
+                            .getState()
+                            .activeTestGroupsUtmValue()}`}
                         target="_blank"
                         onClick={async () =>
                             await General.ping(
@@ -220,7 +220,11 @@ export default function LoginInterface({ actionCallback, initialFocus }) {
                     <a
                         target="_blank"
                         rel="noreferrer"
-                        href={`https://extendify.com/guides/sign-in?utm_source=${window.extendifyData.sdk_partner}&utm_medium=library&utm_campaign=sign-in-form&utm_content=need-help`}
+                        href={`https://extendify.com/guides/sign-in?utm_source=${
+                            window.extendifyData.sdk_partner
+                        }&utm_medium=library&utm_campaign=sign-in-form&utm_content=need-help&utm_group=${useUserStore
+                            .getState()
+                            .activeTestGroupsUtmValue()}`}
                         onClick={async () =>
                             await General.ping(
                                 'need-help-link-from-login-modal-click',

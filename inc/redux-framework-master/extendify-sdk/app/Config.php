@@ -10,6 +10,7 @@ namespace Extendify;
  */
 class Config
 {
+
     /**
      * Plugin name
      *
@@ -46,18 +47,11 @@ class Config
     public static $standalone;
 
     /**
-     * Whether to load Launch
+     * Whether to show load onboarding
      *
      * @var boolean
      */
     public static $showOnboarding = false;
-
-    /**
-     * Whether to load Assist
-     *
-     * @var boolean
-     */
-    public static $showAssist = false;
 
     /**
      * Plugin environment
@@ -88,13 +82,6 @@ class Config
     public static $config = [];
 
     /**
-     * Whether Launch was finished
-     *
-     * @var boolean
-     */
-    public static $launchCompleted = false;
-
-    /**
      * Process the readme file to get version and name
      *
      * @return void
@@ -108,14 +95,9 @@ class Config
         // Set up whether this is the standalone plugin instead of integrated.
         self::$standalone = self::$sdkPartner === 'standalone';
 
-        // TODO: Previous way to set the partner name - can remove in future.
+        // Always use the partner name if set as a constant.
         if (defined('EXTENDIFY_PARTNER_NAME')) {
             self::$sdkPartner = constant('EXTENDIFY_PARTNER_NAME');
-        }
-
-        // Always use the partner ID if set as a constant.
-        if (defined('EXTENDIFY_PARTNER_ID')) {
-            self::$sdkPartner = constant('EXTENDIFY_PARTNER_ID');
         }
 
         // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
@@ -128,17 +110,11 @@ class Config
         preg_match('/Stable tag: ([0-9.:]+)/', $readme, $matches);
         self::$version = $matches[1];
 
-        if (!get_option('extendify_first_installed_version')) {
-            update_option('extendify_first_installed_version', self::$version);
-        }
-
         // An easy way to check if we are in dev mode is to look for a dev specific file.
-        $isDev = is_readable(EXTENDIFY_PATH . '.devbuild');
-
+        $isDev = is_readable(EXTENDIFY_PATH . 'public/build/.devbuild');
         self::$environment = $isDev ? 'DEVELOPMENT' : 'PRODUCTION';
-        self::$launchCompleted = (bool) get_option('extendify_onboarding_completed') || $isDev;
+
         self::$showOnboarding = $this->showOnboarding();
-        self::$showAssist = self::$launchCompleted || self::$showOnboarding;
 
         // Add the config.
         // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
@@ -168,6 +144,12 @@ class Config
             return false;
         }
 
-        return true;
+        // time() will be truthy and 0 falsy.
+        if (get_option('extendify_onboarding_skipped', 0)) {
+            return false;
+        }
+
+        // time() will be truthy and 0 falsy, so we reverse it.
+        return !get_option('extendify_onboarding_completed', 0);
     }
 }

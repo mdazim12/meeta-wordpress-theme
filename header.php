@@ -21,7 +21,7 @@
 
 </head>
 
-<body>
+<body  <?php body_class(); ?>>
 
     <div class="main-wrapper">
 
@@ -46,7 +46,7 @@
 
                             <!-- Header Logo Start -->
                             <div class="header-logo">
-                                <a href="index.html"><img src="<?php echo get_template_directory_uri( ).'/assets/images/logo.png'?>" alt="Logo"></a>
+                                <a href="<?php echo home_url( );?>"><img src="<?php echo get_template_directory_uri( ).'/assets/images/logo.png'?>" alt="Logo"></a>
                             </div>
                             <!-- Header Logo End -->
 

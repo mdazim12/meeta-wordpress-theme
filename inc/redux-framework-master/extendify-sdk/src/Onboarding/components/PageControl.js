@@ -1,31 +1,24 @@
-import { useEffect, useState } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
 import classNames from 'classnames'
 import { useGlobalStore } from '@onboarding/state/Global'
 import { usePagesStore } from '@onboarding/state/Pages'
+import { useProgressStore } from '@onboarding/state/Progress'
 import { useUserSelectionStore } from '@onboarding/state/UserSelections'
 import { LeftArrowIcon, RightArrowIcon } from '@onboarding/svg'
 
 export const PageControl = () => {
-    const { previousPage, currentPageIndex, pages } = usePagesStore()
-    const { openExitModal, setExitButtonHovered } = useGlobalStore()
+    const { nextPage, previousPage, currentPageIndex, pages } = usePagesStore()
+    const totalPages = usePagesStore((state) => state.count())
+    const canLaunch = useUserSelectionStore((state) => state.canLaunch())
+    const touchedPages = useProgressStore((state) => state.touched)
+    const onLastPage = currentPageIndex === totalPages - 1
     const onFirstPage = currentPageIndex === 0
     const currentPageKey = Array.from(pages.keys())[currentPageIndex]
+    const touched = touchedPages.includes(currentPageKey)
+    const skippable = pages.get(currentPageKey)?.metadata?.skippable
 
     return (
         <div className="flex items-center space-x-2">
-            {onFirstPage && (
-                <div className="fixed top-0 right-0 px-3 md:px-6 py-2">
-                    <button
-                        className="flex items-center p-1 text-gray-900 font-medium button-focus md:focus:bg-transparent bg-transparent shadow-none"
-                        type="button"
-                        title={__('Exit Launch', 'extendify')}
-                        onMouseEnter={setExitButtonHovered}
-                        onClick={openExitModal}>
-                        <span className="dashicons dashicons-no-alt text-white md:text-black"></span>
-                    </button>
-                </div>
-            )}
             <div
                 className={classNames('flex flex-1', {
                     'justify-end': currentPageKey === 'welcome',
@@ -33,69 +26,39 @@ export const PageControl = () => {
                 })}>
                 {onFirstPage || (
                     <button
-                        className="flex items-center px-4 py-3 font-medium button-focus text-gray-900 bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 bg-transparent"
+                        className="flex items-center px-4 py-3 text-partner-primary-bg hover:bg-gray-100 font-medium button-focus focus:bg-gray-100"
                         type="button"
                         onClick={previousPage}>
                         <RightArrowIcon className="h-5 w-5" />
                         {__('Back', 'extendify')}
                     </button>
                 )}
-                {onFirstPage && (
+                {canLaunch && onLastPage ? (
                     <button
-                        className="flex items-center px-4 py-3 font-medium button-focus text-gray-900 bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 bg-transparent"
+                        className="px-4 py-3 font-bold bg-partner-primary-bg text-partner-primary-text button-focus"
                         type="button"
-                        onMouseEnter={setExitButtonHovered}
-                        onClick={openExitModal}>
-                        <RightArrowIcon className="h-5 w-5" />
-                        {__('Exit Launch', 'extendify')}
+                        onClick={() =>
+                            useGlobalStore.setState({ generating: true })
+                        }>
+                        {__('Launch site', 'extendify')}
+                    </button>
+                ) : touched || skippable ? (
+                    <button
+                        className="px-4 py-3 font-bold bg-partner-primary-bg text-partner-primary-text button-focus"
+                        type="button"
+                        onClick={nextPage}>
+                        {__('Next', 'extendify')}
+                    </button>
+                ) : (
+                    <button
+                        className="flex items-center px-4 py-3 text-partner-primary-bg hover:bg-gray-100 font-medium button-focus focus:bg-gray-100"
+                        type="button"
+                        onClick={nextPage}>
+                        {__('Skip', 'extendify')}
+                        <LeftArrowIcon className="h-5 w-5" />
                     </button>
                 )}
-                <NextButton />
             </div>
         </div>
-    )
-}
-
-const NextButton = () => {
-    const { nextPage, currentPageIndex, pages } = usePagesStore()
-    const totalPages = usePagesStore((state) => state.count())
-    const canLaunch = useUserSelectionStore((state) => state.canLaunch())
-    const onLastPage = currentPageIndex === totalPages - 1
-    const currentPageKey = Array.from(pages.keys())[currentPageIndex]
-    const pageState = pages.get(currentPageKey).state
-    const [canProgress, setCanProgress] = useState(false)
-    const showNextButton = () =>
-        window.extOnbData?.activeTests?.['launch-site-vs-next'] === 'A'
-
-    useEffect(() => {
-        setCanProgress(pageState?.getState()?.ready)
-        return pageState.subscribe(({ ready }) => setCanProgress(ready))
-    }, [pageState, currentPageIndex])
-
-    if (canLaunch && onLastPage) {
-        return (
-            <button
-                className="flex items-center px-4 py-3 font-bold bg-partner-primary-bg text-partner-primary-text button-focus"
-                onClick={() => {
-                    useGlobalStore.setState({ generating: true })
-                }}
-                type="button">
-                {showNextButton
-                    ? __('Next', 'extendify')
-                    : __('Launch site', 'extendify')}
-                {showNextButton ? <LeftArrowIcon className="h-5 w-5" /> : null}
-            </button>
-        )
-    }
-
-    return (
-        <button
-            className="flex items-center px-4 py-3 font-bold bg-partner-primary-bg text-partner-primary-text button-focus"
-            onClick={nextPage}
-            disabled={!canProgress}
-            type="button">
-            {__('Next', 'extendify')}
-            <LeftArrowIcon className="h-5 w-5" />
-        </button>
     )
 }

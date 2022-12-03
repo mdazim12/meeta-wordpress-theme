@@ -1,18 +1,15 @@
 import { Button } from '@wordpress/components'
-import { __, sprintf } from '@wordpress/i18n'
+import { __ } from '@wordpress/i18n'
 import { General } from '@library/api/General'
+import { useUserStore } from '@library/state/User'
 
 export default function FeedbackNotice() {
     return (
         <>
             <span className="text-black">
-                {sprintf(
-                    // translators: %s: Extendify Library term.
-                    __(
-                        'Tell us how to make the %s work better for you',
-                        'extendify',
-                    ),
-                    'Extendify Library',
+                {__(
+                    'Tell us how to make the Extendify Library work better for you',
+                    'extendify',
                 )}
             </span>
             <span className="px-2 opacity-50" aria-hidden="true">
@@ -22,7 +19,11 @@ export default function FeedbackNotice() {
                 <Button
                     variant="link"
                     className="h-auto p-0 text-black underline hover:no-underline"
-                    href={`https://extendify.com/feedback/?utm_source=${window.extendifyData.sdk_partner}&utm_medium=library&utm_campaign=feedback-notice&utm_content=give-feedback`}
+                    href={`https://extendify.com/feedback/?utm_source=${
+                        window.extendifyData.sdk_partner
+                    }&utm_medium=library&utm_campaign=feedback-notice&utm_content=give-feedback&utm_group=${useUserStore
+                        .getState()
+                        .activeTestGroupsUtmValue()}`}
                     onClick={async () =>
                         await General.ping('feedback-notice-click')
                     }

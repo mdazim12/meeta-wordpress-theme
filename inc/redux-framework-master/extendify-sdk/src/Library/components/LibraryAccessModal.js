@@ -2,7 +2,7 @@ import { Modal } from '@wordpress/components'
 import { ToggleControl } from '@wordpress/components'
 import { useSelect } from '@wordpress/data'
 import { unmountComponentAtNode, useState, useEffect } from '@wordpress/element'
-import { __, sprintf } from '@wordpress/i18n'
+import { __ } from '@wordpress/i18n'
 import { useSiteSettingsStore } from '@library/state/SiteSettings'
 import { useUserStore } from '@library/state/User'
 
@@ -72,11 +72,7 @@ const LibraryAccessModal = () => {
 
     return (
         <Modal
-            title={sprintf(
-                // translators: %s: The name of the plugin, Extendify.
-                __('%s Settings', 'extendify'),
-                'Extendify',
-            )}
+            title={__('Extendify Settings', 'extendify')}
             onRequestClose={closeModal}>
             <ToggleControl
                 label={
@@ -98,7 +94,6 @@ const LibraryAccessModal = () => {
                     <ToggleControl
                         label={__(
                             'Allow all users to publish with the library',
-                            'extendify',
                         )}
                         help={__(
                             'Everyone publishes with patterns & page layouts',

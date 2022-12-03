@@ -21,8 +21,16 @@
     -webkit-font-smoothing: antialiased;
 }
 
+.extendify-onboarding .search-panel input[type="text"]::placeholder {
+    @apply text-sm;
+}
+
+.extendify-onboarding .search-panel .icon-search {
+    position: absolute;
+    right: 16px;
+}
 .extendify-onboarding .button-focus {
-    @apply outline-none cursor-pointer rounded-lg text-center text-base no-underline ring-partner-primary-bg ring-offset-2 ring-offset-white focus:shadow-none focus:ring-wp;
+    @apply outline-none cursor-pointer rounded-lg bg-transparent text-center text-base no-underline ring-partner-primary-bg ring-offset-2 ring-offset-white focus:shadow-none focus:ring-wp;
 }
 .extendify-onboarding .input-focus {
     @apply outline-none rounded-lg text-base ring-partner-primary-bg ring-offset-2 ring-offset-white focus:shadow-none focus:ring-wp;
@@ -36,12 +44,15 @@
 }
 
 .extendify-onboarding .spin {
-    animation: extendify-loading-spinner 1s linear infinite;
+    animation: extendify-loading-spinner 2.5s linear infinite;
 }
 
 @keyframes extendify-loading-spinner {
+    from {
+        transform: rotate(0deg);
+    }
     to {
-        transform: rotate(1turn);
+        transform: rotate(360deg);
     }
 }
 
@@ -57,29 +68,9 @@
 }
 .extendify-onboarding input[type="checkbox"]:checked::before {
     content: "";
-    width: 0 !important;
-    height: 0 !important;
 }
 
 /* Goal checkbox */
 .extendify-onboarding .goal-select .components-base-control__field {
     @apply mb-0;
-}
-.block-editor-block-preview__content {
-    @apply top-0 left-0 m-0 overflow-visible;
-    transform-origin: top left;
-    text-align: initial;
-    min-height: auto;
-}
-
-body.site-assistant_page_extendify-launch,
-body.site-launcher_page_extendify-launch {
-    background: white;
-}
-
-.site-assistant_page_extendify-launch #adminmenumain,
-.site-launcher_page_extendify-launch #adminmenumain,
-.site-assistant_page_extendify-launch #wpadminbar,
-.site-launcher_page_extendify-launch #wpadminbar {
-    display: none;
 }

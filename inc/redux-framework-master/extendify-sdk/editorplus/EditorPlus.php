@@ -8,6 +8,7 @@ if (!class_exists('edpl__EditorPlus')) {
     // phpcs:ignore Squiz.Classes.ClassFileName.NoMatch,Squiz.Commenting.ClassComment.Missing,PEAR.Commenting.ClassComment.Missing
     final class ExtendifyEditorPlus
     {
+
         /**
          * A reference to an instance of this class.
          *
@@ -65,7 +66,7 @@ if (!class_exists('edpl__EditorPlus')) {
                 function () {
                     wp_enqueue_script(
                         'extendify-editorplus-scripts',
-                        EXTENDIFY_BASE_URL . 'public/build/editorplus.min.js',
+                        EXTENDIFY_BASE_URL . 'public/editorplus/editorplus.min.js',
                         [],
                         '1.0',
                         true
