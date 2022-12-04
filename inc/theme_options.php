@@ -34,17 +34,19 @@ CSF::createSection( $prefix, array(
       'title' => 'Show Footer',
     ),
 
+   
     
     array(
       'id'      => 'footer_layout',
       'type'    => 'image_select',
       'title'   => 'Select Footer layout',
       'options' => array(
-        'opt-1' => ' get_template_directory_uri()"../assets/images/footer/footer1.png"',
-        'opt-2' => 'https://github.com/mdazim12/meeta-wordpress-theme/blob/main_/assets/images/footer/footer1.png',
-        'opt-3' => 'http://codestarframework.com/assets/images/placeholder/100x80-ffbc00.gif',
-        'opt-4' => 'http://codestarframework.com/assets/images/placeholder/100x80-3498db.gif',
-        'opt-5' => 'http://codestarframework.com/assets/images/placeholder/100x80-555555.gif',
+        'opt-1' => get_template_directory_uri()."../assets/images/footer/footer1.png",
+        'opt-2' => get_template_directory_uri()."../assets/images/footer/footer2.png",
+        'opt-3' => get_template_directory_uri()."../assets/images/footer/footer3.png",
+        'opt-4' => get_template_directory_uri()."../assets/images/footer/footer4.png",
+        'opt-5' => get_template_directory_uri()."../assets/images/footer/footer5.png",
+        'opt-6' => get_template_directory_uri()."../assets/images/footer/footer6.png",
       ),
       'default' => 'opt-1',
     ),
