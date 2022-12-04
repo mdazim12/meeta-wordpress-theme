@@ -3,15 +3,89 @@
 //
 // Set a unique slug-like ID
 //
-$prefix = '_prefix_my_options';
+$prefix = 'meeta_options';
 
 //
 // Create options
 //
 CSF::createOptions( $prefix, array(
-  'menu_title' => 'CSF Demo',
-  'menu_slug'  => 'csf-demo',
+  'menu_title' => 'Meeta Options',
+  'menu_slug'  => 'meeta_options',
 ) );
+
+
+
+
+//
+// START FOOTER SECTION//
+//
+CSF::createSection( $prefix, array(
+  'title'  => 'Footer',
+  'icon'   => 'fas fa-rocket',
+  'fields' => array(
+
+    //
+    // A text field
+    //
+   
+    array(
+      'id'    => 'footer_switch',
+      'type'  => 'switcher',
+      'title' => 'Show Footer',
+    ),
+
+    
+    array(
+      'id'      => 'footer_layout',
+      'type'    => 'image_select',
+      'title'   => 'Select Footer layout',
+      'options' => array(
+        'opt-1' => ' get_template_directory_uri()"../assets/images/footer/footer1.png"',
+        'opt-2' => 'http://codestarframework.com/assets/images/placeholder/100x80-e74c3c.gif',
+        'opt-3' => 'http://codestarframework.com/assets/images/placeholder/100x80-ffbc00.gif',
+        'opt-4' => 'http://codestarframework.com/assets/images/placeholder/100x80-3498db.gif',
+        'opt-5' => 'http://codestarframework.com/assets/images/placeholder/100x80-555555.gif',
+      ),
+      'default' => 'opt-1',
+    ),
+
+   
+  )
+) );
+
+//END FOOTER SECTION//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //
 // Create a section
