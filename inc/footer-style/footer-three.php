@@ -8,78 +8,32 @@
                 <div class="footer-widget-wrap">
                     <div class="row">
 
+                      
+                            <!-- Footer Widget Start -->
+                            <?php if(is_active_sidebar('footer_widget_one') ){
+                                dynamic_sidebar( 'footer_widget_one' );
+                            }?>
+                            <!-- Footer Widget End -->
+                    
+                        
+                            <!-- Footer Widget Start -->
+                            <?php if(is_active_sidebar('footer_widget_two') ){
+                                dynamic_sidebar( 'footer_widget_two' );
+                            }?>
+                            <!-- Footer Widget End -->
+                      
                         <div class="col-lg-3 col-md-6">
                             <!-- Footer Widget Start -->
-                            <div class="footer-widget">
-                                <h4 class="widget-title">Organized By</h4>
-                                <a class="footer-logo" href="index.html"><img src="assets/images/footer-logo-2.png" alt="Logo"></a>
-                            </div>
+                            <?php if(is_active_sidebar('footer_widget_three') ){
+                                dynamic_sidebar( 'footer_widget_three' );
+                            }?>
                             <!-- Footer Widget End -->
                         </div>
                         <div class="col-lg-3 col-md-6">
                             <!-- Footer Widget Start -->
-                            <div class="footer-widget">
-                                <h4 class="widget-title">Event Details</h4>
-                                <div class="widget-text">
-                                    <span class="date">21 - 23 Octobor 2022</span>
-                                    <p>66 Road Broklyn Street BNG 275 New York. United States of America.</p>
-                                    <a class="btn-2" href="price.html">Buy Ticket</a>
-                                </div>
-                            </div>
-                            <!-- Footer Widget End -->
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <!-- Footer Widget Start -->
-                            <div class="footer-widget">
-                                <h4 class="widget-title">Contact Us</h4>
-                                <div class="widget-info">
-                                    <ul>
-                                        <li>
-                                            <div class="info-icon">
-                                                <i class="flaticon-phone-call"></i>
-                                            </div>
-                                            <div class="info-text">
-                                                <span><a href="#">+91 458 654 528</a></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="info-icon">
-                                                <i class="far fa-envelope-open"></i>
-                                            </div>
-                                            <div class="info-text">
-                                                <span><a href="#">info@example.com </a></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="info-icon">
-                                                <i class="fas fa-map-marker-alt"></i>
-                                            </div>
-                                            <div class="info-text">
-                                                <span>60 East 65th Street, NY</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- Footer Widget End -->
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <!-- Footer Widget Start -->
-                            <div class="footer-widget">
-                                <h4 class="widget-title">Event Details</h4>
-                                <div class="widget-form">
-                                    <form action="#">
-                                        <input class="form-control" type="text" placeholder="Your Email Address">
-                                        <button><i class="flaticon-send"></i></button>
-                                    </form>
-                                </div>
-                                <div class="footer-widget-social">
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                    <a href="#"><i class="fab fa-pinterest"></i></a>
-                                    <a href="#"><i class="fab fa-github"></i></a>
-                                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                </div>
-                            </div>
+                            <?php if(is_active_sidebar('footer_widget_four') ){
+                                dynamic_sidebar( 'footer_widget_four' );
+                            }?>
                             <!-- Footer Widget End -->
                         </div>
                     </div>

@@ -1,26 +1,29 @@
 
 <div class="meeta-footer-section" style="background-image: url(assets/images/bg/footer-bg.jpg);">
 
+
+
+
+
 <!-- Footer Widget Start -->
 <div class="footer-widget text-center">
     <div class="container">
 
         <!-- Footer Logo Start -->
         <div class="footer-logo">
-            <a href="index.html"><img src="assets/images/logo-2.png" alt="Logo"></a>
+           <?php
+                if(is_active_sidebar('footer_widget_one') ){
+                    dynamic_sidebar( 'footer_widget_one' );}
+           ?>
         </div>
         <!-- Footer Logo End -->
 
         <!-- Footer Newsletter Start -->
         <div class="footer-newsletter">
-            <p>Join our mailing list to stay up to date on all things Expotin</p>
-
-            <div class="footer-newsletter-form">
-                <form action="#">
-                    <input type="text" placeholder="Your Email">
-                    <button class="btn btn-3 btn-primary">Subscribe</button>
-                </form>
-            </div>
+        <?php
+                if(is_active_sidebar('footer_widget_two') ){
+                    dynamic_sidebar( 'footer_widget_two' );}
+           ?>
         </div>
         <!-- Footer Newsletter End -->
 

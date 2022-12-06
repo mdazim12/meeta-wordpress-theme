@@ -31,7 +31,7 @@
             echo require_once('inc/footer-style/footer-six.php');
             break;
         default:
-            echo "Your favorite color is neither red, blue, nor green!";
+            echo require_once('inc/footer-style/footer-one.php');
         }
         ?>
             

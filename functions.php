@@ -20,7 +20,7 @@ require_once('inc/class-wp-bootstrap-navwalker.php');
 //require_once('inc/theme_options.php');
 require_once('inc/codestar-framework-master/codestar-framework.php');
 require_once('inc/theme_options.php');
-
+require_once('sidebar.php');
 
 
 
