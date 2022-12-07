@@ -34,6 +34,14 @@ CSF::createSection( $prefix, array(
       'title' => 'Show Footer',
     ),
 
+    array(
+      'id'    => 'foo_background',
+      'type'  => 'upload',
+      'title' => 'Footer background',
+    ),
+
+    
+
    
     
     array(
@@ -50,6 +58,25 @@ CSF::createSection( $prefix, array(
       ),
       'default' => 'opt-1',
     ),
+
+
+    array(
+      'id'    => 'footer_text',
+      'type'  => 'switcher',
+      'title' => 'Footer Text',
+    ),
+
+    array(
+      'id'            => 'foo_text_editor',
+      'type'          => 'wp_editor',
+      'title'         => 'Footer Text',
+      'subtitle'      => 'Input here footer text',
+      'height'        => '100px',
+      'media_buttons' => false,
+      'tinymce'       => false,
+    ),
+
+
 
    
   )

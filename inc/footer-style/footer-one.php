@@ -1,6 +1,7 @@
 
-<div class="meeta-footer-section" style="background-image: url(assets/images/bg/footer-bg.jpg);">
+<?php  $options = get_option( 'meeta_options' );?>
 
+<div class="meeta-footer-section" style="background-image:url(<?php echo $options['foo_background']; ?>);">
 
 
 
@@ -38,9 +39,12 @@
         <!-- Footer widget Social End -->
 
         <!-- Footer Copyright Start -->
+    <?php if($options['footer_text'] =='1'){?>
         <div class="footer-copyright">
-            <p>2022 Copyright Meeta Designed by Pixelcurve . All Rights Reserved</p>
+            <p><?php echo $options['foo_text_editor'];?></p>
         </div>
+    <?php } ?>
+   
         <!-- Footer Copyright End -->
 
     </div>

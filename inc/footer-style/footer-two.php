@@ -62,9 +62,13 @@
                     </div>
                 </div>
 
-                <div class="footer-copyright text-center">
-                    <p>2022 Copyright Meeta Designed by Pixelcurve. All Rights Reserved</p>
-                </div>
+                
+
+                <?php if($options['footer_text'] =='1'){?>
+                    <div class="footer-copyright text-center">
+                        <p><?php echo $options['foo_text_editor'];?></p>
+                    </div>
+                <?php } ?>
 
             </div>
         </div>

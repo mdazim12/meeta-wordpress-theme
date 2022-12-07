@@ -62,9 +62,11 @@
             </div>
         </div>
 
-        <div class="footer-copyright text-center">
-            <p>2021 Copyright Expotin Designed by Love. All Rights Reserved</p>
+        <?php if($options['footer_text'] =='1'){?>
+        <div class="footer-copyright">
+            <p><?php echo $options['foo_text_editor'];?></p>
         </div>
+    <?php } ?>
 
     </div>
 </div>

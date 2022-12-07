@@ -12,17 +12,17 @@
             ),
        );
 
-       register_sidebar( 
-        array(
-            'id'            =>'footer_widget_two',
-            'name'          =>__('Footer Widget Two'),
-            'description'   =>__('A short description of the sidebar'),
-            'before_widget' =>' <div class="footer-newsletter">',
-            'after_widget'  =>'</div>',
-            'before_title'  =>'<h4 class="widget-title">',
-            'after_widget'  =>'</h4>',
-        ),
-   );
+            register_sidebar( 
+                array(
+                    'id'            =>'footer_widget_two',
+                    'name'          =>__('Footer Widget Two'),
+                    'description'   =>__('A short description of the sidebar'),
+                    'before_widget' =>' <div class="footer-newsletter">',
+                    'after_widget'  =>'</div>',
+                    'before_title'  =>'<h4 class="widget-title">',
+                    'after_widget'  =>'</h4>',
+                ),
+        );
 
         register_sidebar( 
             array(

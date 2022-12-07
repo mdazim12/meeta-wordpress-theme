@@ -33,11 +33,11 @@
         </div>
         <!-- Footer widget Social End -->
 
-        <!-- Footer Copyright Start -->
+        <?php if($options['footer_text'] =='1'){?>
         <div class="footer-copyright">
-            <p>2022 Copyright Meeta Designed by Pixelcurve. All Rights Reserved</p>
+            <p><?php echo $options['foo_text_editor'];?></p>
         </div>
-        <!-- Footer Copyright End -->
+      <?php } ?>
 
     </div>
 </div>
