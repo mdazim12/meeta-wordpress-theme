@@ -1,7 +1,7 @@
 
 
        <!-- Footer Start 05-->
-       <div class="meeta-footer-5" style="background-image: url(assets/images/bg/footer-5-bg.jpg);">
+       <div class="meeta-footer-5" style="background-image:url(<?php echo $options['foo_background']; ?>);">
 
 <!-- Footer Widget Start -->
 <div class="footer-widget text-center">
@@ -9,27 +9,29 @@
 
         <!-- Footer Logo Start -->
         <div class="footer-logo">
-            <a href="index.html"><img src="assets/images/footer-logo-1.png" alt="Logo"></a>
+           <?php
+            if(is_active_sidebar( 'footer_widget_one' )){
+                dynamic_sidebar( 'footer_widget_one' );
+            }
+           ?>
         </div>
         <!-- Footer Logo End -->
 
         <div class="footer-menu">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="speaker-single.html">Speaker</a></li>
-                <li><a href="event-single.html">Sponsor</a></li>
-                <li><a href="blog.html">Blog </a></li>
-                <li><a href="contact.html"> Contact</a></li>
-            </ul>
+            <?php
+                if(is_active_sidebar( 'footer_widget_two' )){
+                    dynamic_sidebar( 'footer_widget_two' );
+                }
+            ?>
         </div>
 
         <!-- Footer widget Social Start -->
         <div class="footer-widget-social">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
+            <?php
+                if(is_active_sidebar( 'footer_widget_three' )){
+                    dynamic_sidebar( 'footer_widget_three' );
+                }
+            ?>
         </div>
         <!-- Footer widget Social End -->
 

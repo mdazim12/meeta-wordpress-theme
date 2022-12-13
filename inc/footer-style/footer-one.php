@@ -30,11 +30,11 @@
 
         <!-- Footer widget Social Start -->
         <div class="footer-widget-social">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-dribbble"></i></a>
-            <a href="#"><i class="fab fa-behance"></i></a>
-            <a href="#"><i class="fab fa-pinterest"></i></a>
+        <?php
+                if(is_active_sidebar('footer_widget_three') ){
+                    dynamic_sidebar( 'footer_widget_three' );}
+           ?>
+
         </div>
         <!-- Footer widget Social End -->
 

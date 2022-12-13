@@ -1,5 +1,5 @@
         <!-- Footer Start 04 -->
-        <div class="meeta-footer-section meeta-footer-4" style="background-image: url(assets/images/bg/footer-bg-4.jpg);">
+        <div class="meeta-footer-section meeta-footer-4" style="background-image:url(<?php echo $options['foo_background']; ?>);">
 
 <!-- Footer Widget Start -->
 <div class="footer-widget text-center">
@@ -7,28 +7,31 @@
 
         <!-- Footer Logo Start -->
         <div class="footer-logo">
-            <a href="index.html"><img src="assets/images/logo-4.png" alt="Logo"></a>
+           <?php
+                if(is_active_sidebar( 'footer_widget_one' )){
+                    dynamic_sidebar('footer_widget_one');
+                }
+           ?>
         </div>
         <!-- Footer Logo End -->
 
         <!-- Footer Newsletter Start -->
         <div class="footer-newsletter">
-            <h3 class="title">Subscribe Newsletter</h3>
-            <div class="footer-newsletter-form">
-                <form action="#">
-                    <input type="text" placeholder="Your Email">
-                    <button class="btn btn-primary">Subscribe</button>
-                </form>
-            </div>
+            <?php
+                if(is_active_sidebar( 'footer_widget_two' )){
+                    dynamic_sidebar( 'footer_widget_two' );
+                }
+            ?>
         </div>
         <!-- Footer Newsletter End -->
 
         <!-- Footer widget Social Start -->
         <div class="footer-widget-social">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-dribbble"></i></a>
-            <a href="#"><i class="fab fa-pinterest"></i></a>
+            <?php 
+                if(is_active_sidebar('footer_widget_three' )){
+                    dynamic_sidebar( 'footer_widget_three' );
+                }
+            ?>
         </div>
         <!-- Footer widget Social End -->
 

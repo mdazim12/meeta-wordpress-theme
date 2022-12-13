@@ -5,10 +5,9 @@
                 'id'            =>'footer_widget_one',
                 'name'          =>__('Footer Widget One'),
                 'description'   =>__('A short description of the sidebar'),
-                'before_widget' =>'<div class="footer-logo">',
-                'after_widget'  =>'</div>',
+                
                 'before_title'  =>'<h4 class="widget-title">',
-                'after_widget'  =>'</h4>',
+                'after_title'  =>'</h4>',
             ),
        );
 
@@ -17,10 +16,9 @@
                     'id'            =>'footer_widget_two',
                     'name'          =>__('Footer Widget Two'),
                     'description'   =>__('A short description of the sidebar'),
-                    'before_widget' =>' <div class="footer-newsletter">',
-                    'after_widget'  =>'</div>',
+                    
                     'before_title'  =>'<h4 class="widget-title">',
-                    'after_widget'  =>'</h4>',
+                    'after_title'  =>'</h4>',
                 ),
         );
 
@@ -29,10 +27,9 @@
                 'id'            =>'footer_widget_three',
                 'name'          =>__('Footer Widget Three'),
                 'description'   =>__('A short description of the sidebar'),
-                'before_widget' =>' <div class="footer-widget">',
-                'after_widget'  =>'</div>',
+                
                 'before_title'  =>'<h4 class="widget-title">',
-                'after_widget'  =>'</h4>',
+                'after_title'  =>'</h4>',
             ),
         );
 
@@ -41,10 +38,9 @@
                 'id'            =>'footer_widget_four',
                 'name'          =>__('Footer Widget Four'),
                 'description'   =>__('A short description of the sidebar'),
-                'before_widget' =>' <div class="">',
-                'after_widget'  =>'</div>',
+                
                 'before_title'  =>'<h4 class="widget-title">',
-                'after_widget'  =>'</h4>',
+                'after_title'  =>'</h4>',
             ),
         );
     }

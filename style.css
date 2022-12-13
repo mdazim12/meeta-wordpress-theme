@@ -19,7 +19,47 @@ with others.
 */
 
 .top_classs {
-    margin-top: 30px!important;
+    margin-top: 30px !important;
 }
 
+.wp-block-search__button.wp-element-button {
+    background-color: #fc097c;
+    border-color: #fc097c;
+    color: #ffffff;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: "Archivo", sans-serif;
+    height: 50px;
+    line-height: 50px;
+    padding: 0px 35px;
+    border-width: 0;
+    border-style: solid;
+    box-shadow: none;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    z-index: 1;
+    white-space: nowrap;
+}
 
+.wp-block-search__button.wp-element-button:hover {
+    background-color: #e30870;
+    border-color: #fc097c;
+}
+
+.azim {
+    background-color: rgb(245, 15, 49) !important;
+}
+.azim_grren{
+    background-color: green;
+}
+
+.azim_or{
+    background-color: rgb(222, 238, 9);
+}
+li{
+    list-style: none;
+}

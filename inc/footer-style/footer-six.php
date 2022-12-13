@@ -1,5 +1,5 @@
 <!-- Footer Start 06 -->
-<div class="meeta-footer-section meeta-footer-2" style="background-image: url(assets/images/bg/footer-bg-2.jpg);">
+<div class="meeta-footer-section meeta-footer-2" style="background-image:url(<?php echo $options['foo_background']; ?>);">
 
 <!-- Footer Widget Start -->
 <div class="footer-widget">
