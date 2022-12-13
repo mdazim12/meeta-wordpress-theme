@@ -55,6 +55,4 @@
  <?php wp_footer(  );?>
 </body>
 
-
-<!-- Mirrored from thepixelcurve.com/html/meeta/meeta/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 28 Nov 2022 11:43:17 GMT -->
 </html>

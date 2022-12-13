@@ -27,6 +27,8 @@ function meeta_all_link(){
     wp_enqueue_script( 'aos',get_template_directory_uri().'/assets/js/aos.js', 'jquery','v1.0',true );
     wp_enqueue_script( 'nice-select',get_template_directory_uri().'/assets/js/jquery.nice-select.min.js', 'jquery','v1.0',true );
     wp_enqueue_script( 'main_js',get_template_directory_uri().'/assets/js/main.js', 'jquery','v1.0',true );
+    wp_enqueue_script( 'font_awesome','https://kit.fontawesome.com/74c9bf5232.js', 'jquery','v1.0',true );
+
     
 }
 add_action( 'wp_enqueue_scripts','meeta_all_link');
