@@ -1,5 +1,21 @@
 <?php
     function meeta_widget(){
+
+
+        register_sidebar( 
+            array(
+                'id'            =>'sidebar_widget',
+                'name'          =>__('Sidebar Widget'),
+             
+                'description'   =>__('A short description of the sidebar'),
+                'before_title'  =>'<h3 class="title">',
+                'after_title'  =>'</h3>',
+            ),
+       );
+
+
+
+
         register_sidebar( 
             array(
                 'id'            =>'footer_widget_one',

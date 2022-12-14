@@ -53,13 +53,56 @@ with others.
 .azim {
     background-color: rgb(245, 15, 49) !important;
 }
-.azim_grren{
+
+.azim_grren {
     background-color: green;
 }
 
-.azim_or{
+.azim_or {
     background-color: rgb(222, 238, 9);
 }
-li{
+
+li {
     list-style: none;
+}
+
+input#submit {
+    background-color: #fc097c;
+    border-color: #fc097c;
+    color: #ffffff;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: "Archivo", sans-serif;
+    height: 50px;
+    line-height: 50px;
+    padding: 0px 35px;
+    border-width: 0;
+    border-style: solid;
+    box-shadow: none;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    z-index: 1;
+    white-space: nowrap;
+}
+
+input#submit :hover {
+    background-color: #e30870;
+    border-color: #fc097c;
+}
+
+input#author,
+input#email,
+input#url {
+    background: #f6f7f9;
+    width: 100%;
+    padding: 8px 0px;
+}
+
+textarea#comment {
+    width: 100%;
+    background: #f6f7f9;
 }

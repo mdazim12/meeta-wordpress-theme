@@ -108,42 +108,12 @@
                                     <div class="comment-wrap">
                                         <!-- Commtent Form Start -->
                                         <div class="comment-form">
-                                            <h3 class="comment-title">Leave A Comment</h3>
-                                            <p>Your email address will not be published. Required fields are marked *</p>
+                                            <h3 class="comment-title"><?php echo __('Leave A Comment');?></h3>
+                                            <p><?php echo  __('Your email address will not be published. Required fields are marked *');?></p> 
                                             <!-- Commtent Form Wrap Start -->
                                             <div class="comment-form-wrap">
-                                                <form action="#">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <!--  Single Form Start  -->
-                                                            <div class="single-form">
-                                                                <input class="form-control" type="text" placeholder="Your Name">
-                                                            </div>
-                                                            <!--  Single Form End  -->
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <!--  Single Form Start  -->
-                                                            <div class="single-form">
-                                                                <input class="form-control" type="email" placeholder="Your Email">
-                                                            </div>
-                                                            <!--  Single Form End  -->
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <!--  Single Form Start  -->
-                                                            <div class="single-form">
-                                                                <textarea class="form-control" placeholder="Your Message"></textarea>
-                                                            </div>
-                                                            <!--  Single Form End  -->
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <!--  Single Form Start  -->
-                                                            <div class="form-btn">
-                                                                <button class="btn btn-primary" type="submit">Submit Now</button>
-                                                            </div>
-                                                            <!--  Single Form End  -->
-                                                        </div>
-                                                    </div>
-                                                </form>
+                                            <?php comments_template();?>
+                                                
                                             </div>
                                             <!-- Commtent Form Wrap End -->
                                         </div>
@@ -157,95 +127,14 @@
                         <div class="col-lg-4">
                             <!-- Blog Sidebar Start -->
                             <div class="blog-sidebar">
-                                <!-- Sidebar Widget Start -->
-                                <div class="sidebar-widget sidebar-widget-1">
-                                    <!-- Widget Search Form Start -->
-                                    <form class="search-form" action="#">
-                                        <input type="text" placeholder="Search...">
-                                        <button type="submit"><i class="fas fa-search"></i></button>
-                                    </form>
-                                    <!-- Widget Search Form End -->
-                                </div>
-                                <!-- Sidebar Widget End -->
 
-                                <!-- Sidebar Widget Start -->
-                                <div class="sidebar-widget">
-                                    <!-- Widget Title Start -->
-                                    <div class="widget-title">
-                                        <h3 class="title">Recent Posts</h3>
-                                    </div>
-                                    <!-- Widget Title End -->
-                                    <!-- Widget Recent Post Start -->
-                                    <div class="recent-posts">
-                                        <ul>
-                                            <li>
-                                                <a class="post-link" href="blog-details.html">
-                                                    <div class="post-thumb">
-                                                        <img src="assets/images/blog/r-post-1.jpg" alt="">
-                                                    </div>
-                                                    <div class="post-text">
-                                                        <h4 class="title">Cupidatat non proident sunt culpa</h4>
-                                                        <span class="post-meta"><i class="far fa-calendar-alt"></i>  Octobor 09, 2022</span>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="post-link" href="blog-details.html">
-                                                    <div class="post-thumb">
-                                                        <img src="assets/images/blog/r-post-2.jpg" alt="">
-                                                    </div>
-                                                    <div class="post-text">
-                                                        <h4 class="title">Cupidatat non proident sunt culpa</h4>
-                                                        <span class="post-meta"><i class="far fa-calendar-alt"></i>  Octobor 09, 2022</span>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="post-link" href="blog-details.html">
-                                                    <div class="post-thumb">
-                                                        <img src="assets/images/blog/r-post-3.jpg" alt="">
-                                                    </div>
-                                                    <div class="post-text">
-                                                        <h4 class="title">Cupidatat non proident sunt culpa</h4>
-                                                        <span class="post-meta"><i class="far fa-calendar-alt"></i>  Octobor 09, 2022</span>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- Widget Recent Post End -->
-                                </div>
-                                <hr>
-                                <!-- Sidebar Widget End -->
-
-                                <!-- Sidebar Widget Start -->
-                                <div class="sidebar-widget">
-                                    <!-- Widget Title Start -->
-                                    <div class="widget-title">
-                                        <h3 class="title">Categories</h3>
-                                    </div>
-                                    <!-- Widget Title End -->
-                                    <!-- Widget Category Start -->
-                                    <ul class="category">
-                                        <li class="cate-item"><a href="#"><i class="flaticon-next"></i> Industry <span class="post-count">(11)</span></a></li>
-                                        <li class="cate-item"><a href="#"><i class="flaticon-next"></i> Business <span class="post-count">(02)</span></a></li>
-                                        <li class="cate-item"><a href="#"><i class="flaticon-next"></i> Construction <span class="post-count">(0)</span></a></li>
-                                        <li class="cate-item"><a href="#"><i class="flaticon-next"></i> Factory <span class="post-count">(231)</span></a></li>
-                                        <li class="cate-item"><a href="#"><i class="flaticon-next"></i> Estate <span class="post-count">(45)</span></a></li>
-                                    </ul>
-                                    <!-- Widget Category End -->
-                                </div>
-                                <!-- Sidebar Widget End -->
-
-                                <!-- Sidebar Widget Start -->
-                                <div class="sidebar-widget">
-                                    <div class="widget-banner" style="background-image: url(assets/images/blog/sidebar-img.jpg);">
-                                        <h4 class="sub-title">Upcoming Events</h4>
-                                        <h3 class="title">2022 Creative meetup & music event</h3>
-                                        <a class="btn btn-primary" href="price.html">Book Your Seat</a>
-                                    </div>
-                                </div>
-                                <!-- Sidebar Widget End -->
+                                <?php
+                                    if(is_active_sidebar( 'sidebar_widget' )){
+                                        dynamic_sidebar( 'sidebar_widget' );
+                                    }
+                                ?>
+                                
+                               
                             </div>
                             <!-- Blog Sidebar End -->
                         </div>
