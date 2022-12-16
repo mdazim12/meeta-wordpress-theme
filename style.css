@@ -50,17 +50,7 @@ with others.
     border-color: #fc097c;
 }
 
-.azim {
-    background-color: rgb(245, 15, 49) !important;
-}
 
-.azim_grren {
-    background-color: green;
-}
-
-.azim_or {
-    background-color: rgb(222, 238, 9);
-}
 
 li {
     list-style: none;
@@ -106,3 +96,4 @@ textarea#comment {
     width: 100%;
     background: #f6f7f9;
 }
+#menu-top-menu-1 {display: inline-block;}

@@ -58,14 +58,13 @@
                                     'depth'             =>2,
                                     'menu_class'        =>'main-menu',
                                     'container_class'   =>'header-navigation',
-                                  
-
+                                 
                                 ) );
                             ?>
 
-                            
-
                         </div>
+
+                         
                         <div class="col-lg-3 col-8">
 
                             <!-- Header Meta Start -->
@@ -183,57 +182,33 @@
         <!-- Mini Cart End -->
 
 
-        <!-- Offcanvas Start-->
+        
         <div class="offcanvas offcanvas-start" id="offcanvasExample">
             <div class="offcanvas-header">
-                <!-- Offcanvas Logo Start -->
+            
                 <div class="offcanvas-logo">
-                    <a href="index.html"><img src="assets/images/logo.png" alt=""></a>
+                    <a href="index.html"><img src="assets/images/logo-4.png" alt=""></a>
                 </div>
-                <!-- Offcanvas Logo End -->
+             
                 <button type="button" class="close-btn" data-bs-dismiss="offcanvas"><i class="flaticon-close"></i></button>
             </div>
 
-            <!-- Offcanvas Body Start -->
+            
             <div class="offcanvas-body">
                 <div class="offcanvas-menu">
-                    <ul class="main-menu">
-                        <li class="active-menu"><a href="#">Home</a>
-                            <ul class="sub-menu">
-                                <li><a class="active" href="index.html">Home 01</a></li>
-                                <li><a href="index-2.html">Home 02</a></li>
-                                <li><a href="index-3.html">Home 03</a></li>
-                                <li><a href="index-4.html">Home 04</a></li>
-                                <li><a href="index-5.html">Home 05</a></li>
-                                <li><a href="index-6.html">Home 06</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="#">Pages</a>
-                            <ul class="sub-menu">
-                                <li><a href="event-list.html">Event List</a></li>
-                                <li><a href="event-single.html">Event Single</a></li>
-                                <li><a href="schedule.html">Event Schedule</a></li>
-                                <li><a href="speaker-one.html">Speakers 01</a></li>
-                                <li><a href="speaker-two.html">Speakers 02</a></li>
-                                <li><a href="speaker-single.html">Speaker Single</a></li>
-                                <li><a href="gallery.html">Gallery</a></li>
-                                <li><a href="price.html">Pricing</a></li>
-                                <li><a href="faq.html">FAQ's</a></li>
-                                <li><a href="login-register.html">Login Register</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Blog</a>
-                            <ul class="sub-menu">
-                                <li><a href="blog.html">Blog Grid</a></li>
-                                <li><a href="blog-standard.html">Latest News</a></li>
-                                <li><a href="blog-details.html">Blog Details</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
+                <?php
+                                wp_nav_menu( array(
+                                    'theme_location'    =>'primary_menu',
+                                    'depth'             =>2,
+                                    'menu_class'        =>'main-menu',
+                                    'container_class'   =>'header-navigation',
+                                 
+                                ) );
+                            ?>
+
+                   
                 </div>
             </div>
-            <!-- Offcanvas Body End -->
+            
         </div>
-        <!-- Offcanvas End -->
+        
