@@ -31,32 +31,33 @@
                             <!-- Blog Details Post Start -->
                             <div class="blog-details-post">
                                 <!-- Single Blog Start -->
-                    <?php 
-                        if(have_posts()){
-                            while(have_posts(  )) :the_post(); ?>
-                                <div class="single-blog">
-                                <div class="blog-image">
-                                    <a href="<?php the_permalink( );?>"><?php the_post_thumbnail();?></a>
-                                </div>
-                                <div class="blog-content">
-                                    <div class="blog-meta">
-                                        <span class="category"><?php the_category( );?></span>
-                                        <span class="date"><?php the_date();?></span>
-                                    </div>
-                                    <h3 class="title"><a href="<?php the_permalink();?>"><?php the_title();?> </a></h3>
-                                </div>
-                            </div>
-                        <?php endwhile; } 
-                        else{
-                            printf(__('<h1>There is no post in this Category </h1>','meeta'));
-                            
-                        }
-                        ?>
+                                    <?php 
+                                        if(have_posts()){
+                                            while(have_posts(  )) :the_post(); ?>
+                                                <div class="single-blog">
+                                                <div class="blog-image">
+                                                    <a href="<?php the_permalink( );?>"><?php the_post_thumbnail();?></a>
+                                                </div>
+                                                <div class="blog-content">
+                                                    <div class="blog-meta">
+                                                        <span class="category"><?php the_category( );?></span>
+                                                        <span class="date"><?php the_date();?></span>
+                                                    </div>
+                                                    <h3 class="title"><a href="<?php the_permalink();?>"><?php the_title();?> </a></h3>
+                                                </div>
+                                            </div>
+                                        <?php endwhile; } 
+                                        else{
+                                            printf(__('<h1>There is no post in this Category </h1>','meeta'));
+                                            
+                                        }
+                                        ?>
                                 <!-- Single Blog End -->
                                 
                             </div>
                             <!-- Blog Details Post End -->
                         </div>
+                        
                         <div class="col-lg-6">
                             <!-- Blog Sidebar Start -->
                             <div class="blog-sidebar">
