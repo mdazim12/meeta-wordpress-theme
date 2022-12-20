@@ -8,7 +8,7 @@
                         <div class="col-lg-12">
                             <!-- Page Banner Content Start -->
                             <div class="page-banner text-center">
-                                <h2 class="title"><?php wp_title(" ");?></h2>
+                                <h2 class="title"><?php printf(__('Seacrh Result for: %s','meeta'),get_search_query( )); ?></h2>
                                 <ul class="breadcrumb justify-content-center">
                                     <li class="breadcrumb-item"><a href="<?php echo home_url( );?>">Home</a></li>
                                     
@@ -37,11 +37,15 @@
                                        <?php the_post_thumbnail('large');?>
                                     </div>
                                     <div class="blog-content">
+                                     <?php if(have_posts(  )){?>   
                                         <span class="category color-4"><?php the_category(  );?></span>
                                         <div class="blog-meta">
-                                            <span class="meta"><i class="far fa-user"></i>  <a href="#"><?php echo the_author( );?></a></span>
+                                            <span class="meta"><i class="far fa-user"></i>  <a href="#"><?php echo the_author(" ");?></a></span>
                                             <span class="meta"><i class="far fa-calendar-alt"></i> <?php echo the_time('j-F-Y');?></span>
+                                            
                                         </div>
+                                    <?php }?>
+
                                         <h3 class="title"><?php the_title(  );?> </h3>
                                         <p><?php the_content( );?></p>
                                     </div>
@@ -64,6 +68,7 @@
                                             <?php }?>
                                            
                                         </div>
+                                    <?php if(have_posts(  )){?>
                                         <div class="blog-details-share">
                                             <span class="share-title"><?php echo __('Share This Post');?></span>
                                             <ul class="social-share">
@@ -72,10 +77,14 @@
                                                 <li><a class="share-facebook" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=&lt;?php the_permalink() ?&gt;&amp;title=&lt;?php the_title(); ?&gt;&amp;summary=&amp;source=&lt;?php bloginfo('name'); ?&gt;" target="_new" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a></li>
                                             </ul>
                                         </div>
+                                    <?php }
+                                    
+                                    ?>
+
                                     </div>
                                     <!-- Blog Details Tag Share End -->
                                     <!-- Blog Details Post Navigation Start -->
-                                    <div class="meeta-post-pagination">
+                                    <!-- <div class="meeta-post-pagination">
                                         <div class="previous-post">
                                             <div class="blog-pagination-post">
                                                 <div class="post-icon">
@@ -102,7 +111,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <!-- Blog Details Post Navigation End -->
                                     <!-- Commtent Wrap Start -->
                                     <div class="comment-wrap">

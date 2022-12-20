@@ -2,7 +2,7 @@
 <?php  $options = get_option( 'meeta_options' );?>
 
 <?php
-        if($options['footer_switch'] == '1'){ ?>
+        if($options['footer_switch'] =='1'){ ?>
         
               
             <?php
