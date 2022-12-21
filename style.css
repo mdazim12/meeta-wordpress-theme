@@ -20,6 +20,7 @@ with others.
 
 .top_classs {
     margin-top: 30px !important;
+    
 }
 
 .wp-block-search__button.wp-element-button {
@@ -97,3 +98,10 @@ textarea#comment {
     background: #f6f7f9;
 }
 #menu-top-menu-1 {display: inline-block;}
+
+
+.hero_sec {
+    background: white!important
+    ;
+    margin-left: -200px!important;
+}

@@ -1,4 +1,6 @@
-<?php get_header(  );?>
+<?php get_header(  );
+the_content(  );
+?>
 
         <div class="section page-banner-section">
             <div class="container">
