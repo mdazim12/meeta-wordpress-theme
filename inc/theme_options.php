@@ -16,6 +16,46 @@ CSF::createOptions( $prefix, array(
 
 
 
+
+
+//
+// START HEADER SECTION//
+//
+CSF::createSection( $prefix, array(
+  'title'  => 'Footer',
+  'icon'   => 'fas fa-rocket',
+  'fields' => array(
+
+    //
+    // A text field
+    //
+   
+   
+
+    array(
+      'id'    => 'header_logo',
+      'type'  => 'media',
+      'title' => 'Logo',
+    ),
+
+    
+
+   
+    
+   
+
+
+  
+   
+  )
+) );
+
+//END HEADER SECTION//
+
+
+
+
+
 //
 // START FOOTER SECTION//
 //

@@ -105,3 +105,14 @@ textarea#comment {
     ;
     margin-left: -200px!important;
 }
+.elementor-49 .elementor-element.elementor-element-d65cc07 > .elementor-widget-container{
+    width: 30%;
+    margin: auto;
+}
+
+img.attachment-medium.size-medium.wp-image-199 {
+    position: absolute;
+    top: 8%;
+    right: -150px;
+    z-index: -1;
+}
