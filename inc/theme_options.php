@@ -22,8 +22,8 @@ CSF::createOptions( $prefix, array(
 // START HEADER SECTION//
 //
 CSF::createSection( $prefix, array(
-  'title'  => 'Footer',
-  'icon'   => 'fas fa-rocket',
+  'title'  => 'Header',
+  'icon'   => 'fas fa-bars',
   'fields' => array(
 
     //

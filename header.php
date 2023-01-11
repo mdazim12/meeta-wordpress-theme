@@ -1,3 +1,5 @@
+<?php  $options = get_option( 'meeta_options' );?>
+
 <!doctype html>
 <html class="no-js" lang="<?php language_attributes( );?>">
 
@@ -43,10 +45,10 @@
 
                     <div class="row align-items-center">
                         <div class="col-lg-3 col-4">
-
                             <!-- Header Logo Start -->
                             <div class="header-logo">
-                                <a href="<?php echo home_url( );?>"><img src="<?php echo get_template_directory_uri( ).'/assets/images/logo.png'?>" alt="Logo"></a>
+                                <a href="<?php echo home_url( );?>"><img src="<?php echo  $options['header_logo']['url'];?>" ></a>
+                            
                             </div>
                             <!-- Header Logo End -->
 
