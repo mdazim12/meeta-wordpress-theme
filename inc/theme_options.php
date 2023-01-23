@@ -26,17 +26,40 @@ CSF::createSection( $prefix, array(
   'icon'   => 'fas fa-bars',
   'fields' => array(
 
-    //
-    // A text field
-    //
-   
-   
-
+  
     array(
       'id'    => 'header_logo',
       'type'  => 'media',
       'title' => 'Logo',
     ),
+    array(
+      'id'      => 'header_typography',
+      'type'    => 'typography',
+      'title'   => 'Menu Typography',
+      'output'  => array('.header-navigation .main-menu li a'),
+      'default' => array(
+        'color'          => '#ffffff',
+        'font-family'    => 'Big Shoulders Display',
+        'font-size'      => '16',
+        'weight'         => '700',
+        'letter-spacing' => '-1',
+        'text-transform' => 'uppercase',
+        'subset'         => 'latin-ext',
+        'type'           => 'google',
+        'unit'           => 'px',
+      ),
+    ),
+
+    array(
+      'id'      => 'header_hover_color',
+      'type'    => 'color',
+      'title'   => 'Menu Hover color',
+      'output'  =>array('.header-navigation .main-menu li:hover > a '),
+      'default' => '#fc097c',
+    ),
+
+
+    
 
     
 

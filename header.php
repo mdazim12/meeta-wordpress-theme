@@ -66,57 +66,6 @@
 
                         </div>
 
-                         
-                        <div class="col-lg-3 col-8">
-
-                            <!-- Header Meta Start -->
-                            <div class="header-meta">
-
-                                <div class="header-actions">
-                                    <div class="header-action">
-                                        <button class="icon-open-container">
-                                            <span class="action-text">My Cart</span>
-                                            <i class="flaticon-shopping-cart"></i>
-                                            <span class="count">3</span>
-                                        </button>
-                                    </div>
-                                    <div class="header-action d-none d-sm-block">
-                                        <div class="header-search">
-                                            <a class="search-btn" href="#"><i class="flaticon-loupe"></i></a>
-                                            <div class="search-wrap">
-                                                <div class="search-inner">
-                                                    <i id="search-close" class="flaticon-close search-close"></i>
-                                                    <div class="search-cell">
-                                                        <form action="#">
-                                                            <div class="search-field-holder">
-                                                                <input class="main-search-input" type="search" placeholder="Search Your Keyword...">
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="header-btn d-none d-md-block">
-                                    <a href="price.html" class="btn btn-3 btn-primary">Buy Ticket Now</a>
-                                </div>
-
-                                <!-- Header Toggle Start -->
-                                <div class="header-toggle d-md-none">
-                                    <button data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample">
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                    </button>
-                                </div>
-                                <!-- Header Toggle End -->
-
-                            </div>
-                            <!-- Header Meta End -->
-
-                        </div>
                     </div>
 
                 </div>
