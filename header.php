@@ -66,6 +66,33 @@
 
                         </div>
 
+                         
+                        <div class="col-lg-3 col-8">
+
+                            <!-- Header Meta Start -->
+                            <div class="header-meta">
+
+                                
+                                  
+
+                                <div class="header-btn d-none d-md-block">
+                                    <a href="price.html" class="btn btn-3 btn-primary">Buy Ticket Now</a>
+                                </div>
+
+                                <!-- Header Toggle Start -->
+                                <div class="header-toggle d-md-none">
+                                    <button data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </button>
+                                </div>
+                                <!-- Header Toggle End -->
+
+                            </div>
+                            <!-- Header Meta End -->
+
+                        </div>
                     </div>
 
                 </div>

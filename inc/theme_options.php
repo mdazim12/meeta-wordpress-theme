@@ -21,9 +21,18 @@ CSF::createOptions( $prefix, array(
 //
 // START HEADER SECTION//
 //
+
 CSF::createSection( $prefix, array(
-  'title'  => 'Header',
-  'icon'   => 'fas fa-bars',
+  'id'    => 'main_header',
+  'title' => 'Header',
+  'icon'  => 'fas fa-plus-circle',
+) );
+
+
+CSF::createSection( $prefix, array(
+  'parent' => 'main_header',
+  'title'  => 'Logo',
+  'icon'   => 'fas fa-images',
   'fields' => array(
 
   
@@ -32,6 +41,44 @@ CSF::createSection( $prefix, array(
       'type'  => 'media',
       'title' => 'Logo',
     ),
+    array(
+      'id'       => 'header_logo_width',
+      'type'     => 'dimensions',
+      'title'    => 'Header logo size',
+      'output'   => '.header-logo',
+      'default'  => array(
+        'width'  => '100',
+        'height' => '250',
+        'unit'   => array('px','%'),
+      ),
+    ),
+
+    array(
+      'id'          => 'header_logo_spacing',
+      'type'        => 'spacing',
+      'title'       => 'Logo Spacing',
+      'output'      => '.header-logo',
+      'output_mode' => 'padding', // or margin, relative
+      'default'     => array(
+        'top'       => '10',
+        'right'     => '20',
+        'bottom'    => '10',
+        'left'      => '20',
+        'unit'      => 'px',
+      ),
+    ),
+
+    )));
+
+    CSF::createSection( $prefix, array(
+      'parent' => 'main_header',
+      'title'  => 'Navagation',
+      'icon'   => 'fas fa-bars',
+      'fields' => array(
+
+    
+
+
     array(
       'id'      => 'header_typography',
       'type'    => 'typography',
@@ -61,14 +108,6 @@ CSF::createSection( $prefix, array(
 
     
 
-    
-
-   
-    
-   
-
-
-  
    
   )
 ) );
