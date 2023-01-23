@@ -47,7 +47,7 @@
                         <div class="col-lg-3 col-4">
                             <!-- Header Logo Start -->
                             <div class="header-logo">
-                                <a href="<?php echo home_url( );?>"><img src="<?php echo  $options['header_logo']['url'];?>" ></a>
+                                <a href="<?php echo home_url( );?>"><img src="<?php echo  $options ['header_logo']['url'];?>" ></a>
                             
                             </div>
                             <!-- Header Logo End -->
@@ -72,12 +72,13 @@
                             <!-- Header Meta Start -->
                             <div class="header-meta">
 
-                                
-                                  
-
+                            <?php
+                               if( $options['header_btn'] =='1'){ ?>
+                            ?>
                                 <div class="header-btn d-none d-md-block">
-                                    <a href="price.html" class="btn btn-3 btn-primary">Buy Ticket Now</a>
+                                    <a href="<?php echo esc_url($options ['header_btn_link']); ?>" class="btn btn-3 btn-primary"><?php echo  $options ['header_btn_content']; ?></a>
                                 </div>
+                            <?php }  ?>
 
                                 <!-- Header Toggle Start -->
                                 <div class="header-toggle d-md-none">

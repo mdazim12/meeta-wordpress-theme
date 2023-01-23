@@ -32,7 +32,7 @@ CSF::createSection( $prefix, array(
 CSF::createSection( $prefix, array(
   'parent' => 'main_header',
   'title'  => 'Logo',
-  'icon'   => 'fas fa-images',
+  'icon'   => 'fas fa-',
   'fields' => array(
 
   
@@ -70,6 +70,8 @@ CSF::createSection( $prefix, array(
 
     )));
 
+    ////Navagation///
+
     CSF::createSection( $prefix, array(
       'parent' => 'main_header',
       'title'  => 'Navagation',
@@ -105,12 +107,152 @@ CSF::createSection( $prefix, array(
       'default' => '#fc097c',
     ),
 
+    array(
+      'id'    => 'header_btn',
+      'type'  => 'switcher',
+      'title' => 'Show Header Button',
+    ),
+
+    array(
+      'id'    => 'header_btn_content',
+      'type'  => 'text',
+      'title' => 'Header Button Label',
+    ),
+    array(
+      'id'    => 'header_btn_link',
+      'type'  => 'text',
+      'title' => 'Header Button Link',
+    ),
+
+    array(
+      'id'      => 'header_buton_typography',
+      'type'    => 'typography',
+      'title'   => 'Header Button Typography',
+      'output'  => array('.btn','.btn.btn-3','.btn-primary'),
+      'default' => array(
+        'color'          => '#ffffff',
+        'font-family'    => 'Big Shoulders Display',
+        'font-size'      => '16',
+        'weight'         => '700',
+        'letter-spacing' => '-1',
+        'text-transform' => 'uppercase',
+        'subset'         => 'latin-ext',
+        'type'           => 'google',
+        'unit'           => 'px',
+      ),
+    ),
+    array(
+      'id'          => 'header_buton_spacing',
+      'type'        => 'spacing',
+      'title'       => 'Header Button Spacing',
+      'output'      =>  array('.btn','.btn.btn-3','.btn-primary'),
+      'output_mode' => 'padding', // or margin, relative
+      'default'     => array(
+        'top'       => '10',
+        'right'     => '20',
+        'bottom'    => '10',
+        'left'      => '20',
+        'unit'      => 'px',
+      ),
+    ),
+    array(
+      'id'      => 'header_button_color',
+      'type'    => 'color',
+      'title'   => 'Header Button color',
+      'output'  =>array('.btn-primary','btn'),
+      'default' => '#ffffff',
+    ),
+    array(
+      'id'      => 'header_button_bg',
+      'type'    => 'background',
+      'title'   => 'Header Button Background',
+      'output'  =>array('.btn-primary'),
+      'default' => '#fc097c',
+    ),
+
 
     
 
    
   )
 ) );
+
+
+CSF::createSection( $prefix, array(
+  'parent' => 'main_header',
+  'title'  => 'Header Button',
+  'icon'   => 'fas fa-',
+  'fields' => array(
+
+  
+    array(
+      'id'    => 'header_btn',
+      'type'  => 'switcher',
+      'title' => 'Show Header Button',
+    ),
+
+    array(
+      'id'    => 'header_btn_content',
+      'type'  => 'text',
+      'title' => 'Header Button Label',
+    ),
+    array(
+      'id'    => 'header_btn_link',
+      'type'  => 'text',
+      'title' => 'Header Button Link',
+    ),
+
+    array(
+      'id'      => 'header_buton_typography',
+      'type'    => 'typography',
+      'title'   => 'Header Button Typography',
+      'output'  => array('.btn','.btn.btn-3','.btn-primary'),
+      'default' => array(
+        'color'          => '#ffffff',
+        'font-family'    => 'Big Shoulders Display',
+        'font-size'      => '16',
+        'weight'         => '700',
+        'letter-spacing' => '-1',
+        'text-transform' => 'uppercase',
+        'subset'         => 'latin-ext',
+        'type'           => 'google',
+        'unit'           => 'px',
+      ),
+    ),
+    array(
+      'id'          => 'header_buton_spacing',
+      'type'        => 'spacing',
+      'title'       => 'Header Button Spacing',
+      'output'      =>  array('.btn','.btn.btn-3','.btn-primary'),
+      'output_mode' => 'padding', // or margin, relative
+      'default'     => array(
+        'top'       => '10',
+        'right'     => '20',
+        'bottom'    => '10',
+        'left'      => '20',
+        'unit'      => 'px',
+      ),
+    ),
+    array(
+      'id'      => 'header_button_color',
+      'type'    => 'color',
+      'title'   => 'Header Button color',
+      'output'  =>array('.btn-primary','btn'),
+      'default' => '#ffffff',
+    ),
+    array(
+      'id'      => 'header_button_bg',
+      'type'    => 'background',
+      'title'   => 'Header Button Background',
+      'output'  =>array('.btn-primary'),
+      'default' => '#fc097c',
+    ),
+
+    
+
+    
+
+    )));
 
 //END HEADER SECTION//
 
