@@ -74,7 +74,7 @@
 
                             <?php
                                if( $options['header_btn'] =='1'){ ?>
-                            ?>
+                            
                                 <div class="header-btn d-none d-md-block">
                                     <a href="<?php echo esc_url($options ['header_btn_link']); ?>" class="btn btn-3 btn-primary"><?php echo  $options ['header_btn_content']; ?></a>
                                 </div>
