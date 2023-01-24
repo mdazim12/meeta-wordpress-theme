@@ -103,71 +103,14 @@
         </div>
         <!-- Header End -->
 
-        <!-- Mini Cart Start -->
-        <div class="off-canvas">
-            <div class="icon-close"></div>
-
-            <!-- Mini Cart Box Start -->
-            <div class="meeta-mini-cart-box">
-
-                <div class="mini-cart-items">
-
-                    <div class="mini-cart-item">
-                        <div class="mini-cart-item-image">
-                            <a href="#"><img src="assets/images/cart/cart-1.jpg" alt="Cart"></a>
-                        </div>
-                        <div class="mini-cart-item-content">
-                            <h4 class="mini-cart-title"><a href="#">Virtual Event with Protected Content and Hidden Livestream </a></h4>
-                            <p class="mini-cart-quantity">1 × $19.99</p>
-                        </div>
-                        <button class="btn-close"></button>
-                    </div>
-
-                    <div class="mini-cart-item">
-                        <div class="mini-cart-item-image">
-                            <a href="#"><img src="assets/images/cart/cart-2.jpg" alt="Cart"></a>
-                        </div>
-                        <div class="mini-cart-item-content">
-                            <h4 class="mini-cart-title"><a href="#">Virtual Event with Protected Content and Hidden Livestream </a></h4>
-                            <p class="mini-cart-quantity">1 × $19.99</p>
-                        </div>
-                        <button class="btn-close"></button>
-                    </div>
-
-                    <div class="mini-cart-item">
-                        <div class="mini-cart-item-image">
-                            <a href="#"><img src="assets/images/cart/cart-3.jpg" alt="Cart"></a>
-                        </div>
-                        <div class="mini-cart-item-content">
-                            <h4 class="mini-cart-title"><a href="#">Virtual Event with Protected Content and Hidden Livestream </a></h4>
-                            <p class="mini-cart-quantity">1 × $19.99</p>
-                        </div>
-                        <button class="btn-close"></button>
-                    </div>
-
-                </div>
-
-                <div class="mini-cart-sub-total">
-                    <p><strong>Subtotal:</strong> <span class="mini-cart-amount">$99.97</span></p>
-                </div>
-                <div class="mini-cart-sub-btn">
-                    <a class="btn btn-primary" href="#">View cart</a>
-                    <a class="btn btn-white" href="#">Checkout</a>
-                </div>
-            </div>
-            <!-- Mini Cart Box End -->
-
-        </div>
-        <!-- Mini Cart End -->
+    
+        
 
 
         
         <div class="offcanvas offcanvas-start" id="offcanvasExample">
             <div class="offcanvas-header">
-            
-                <div class="offcanvas-logo">
-                    <a href="index.html"><img src="assets/images/logo-4.png" alt=""></a>
-                </div>
+
              
                 <button type="button" class="close-btn" data-bs-dismiss="offcanvas"><i class="flaticon-close"></i></button>
             </div>
